@@ -2,10 +2,12 @@ package com.sg.twitterstreaming.service;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface TweetsService {
 
-    public ResponseEntity<?> fetchTweetsByKeyword(String keyword);
+    public Object fetchTweetsByKeyword(String keyword);
 
     public ResponseEntity<?> fetchTweetsByUsername(String username);
 

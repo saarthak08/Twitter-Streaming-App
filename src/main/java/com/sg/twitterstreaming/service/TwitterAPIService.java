@@ -1,6 +1,6 @@
 package com.sg.twitterstreaming.service;
 
-import org.springframework.beans.factory.annotation.Value;
+import com.sg.twitterstreaming.config.Key;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestExecution;
@@ -10,18 +10,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
-public class TwitterAPI implements TweetsService {
+public class TwitterAPIService implements TweetsService {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
-    @Value("${TWITTER_BEARER_TOKEN}")
-    private String token;
+    private final String token= Key.BearerToken;
 
-    private final String baseURL = "https://api.twitter.com/2/tweets/search/recent?query=saarthak&max_results=20&tweet.fields=public_metrics";
+    private final String baseURL = "https://api.twitter.com/2/tweets/search/recent?max_results=20&tweet.fields=public_metrics&";
 
-    public TwitterAPI() {
+    public TwitterAPIService() {
         restTemplate = new RestTemplate();
         restTemplate.getInterceptors().add(new ClientHttpRequestInterceptor() {
             @Override
@@ -34,8 +35,8 @@ public class TwitterAPI implements TweetsService {
 
 
     @Override
-    public ResponseEntity<?> fetchTweetsByKeyword(String keyword) {
-        return null;
+    public Object fetchTweetsByKeyword(String keyword) {
+        return restTemplate.getForObject(baseURL+"query={keyword}",Object.class,keyword);
     }
 
     @Override
