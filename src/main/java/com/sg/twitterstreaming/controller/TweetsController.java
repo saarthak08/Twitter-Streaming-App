@@ -1,8 +1,10 @@
 package com.sg.twitterstreaming.controller;
 
+import com.sg.twitterstreaming.model.Data;
 import com.sg.twitterstreaming.service.APIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.Disposable;
@@ -15,19 +17,18 @@ import reactor.core.publisher.Flux;
 public class TweetsController {
 
     private final APIService apiService;
-    private Disposable disposable;
 
     @Autowired
     public TweetsController(APIService apiService) {
         this.apiService = apiService;
     }
 
-    @GetMapping("/search/{keyword}")
-    public Object getTweetsWithKeyword(@PathVariable String keyword) {
-        return apiService.fetchTweetsByKeyword(keyword);
+    @GetMapping(value = "/search")
+    public Object recentSearchTweets(@RequestParam(name = "keyword") String keyword, @RequestParam(name="next_token",required = false) String nextToken) {
+        return apiService.recentSearchTweetsByKeyword(keyword,nextToken).getBody();
     }
 
-    @GetMapping(value = "/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/stream", produces = {MediaType.TEXT_EVENT_STREAM_VALUE})
     public Flux<String> startTweetsStreaming() {
         return apiService.startTweetsStreaming();
     }

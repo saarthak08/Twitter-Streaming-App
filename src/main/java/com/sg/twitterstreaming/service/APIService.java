@@ -1,15 +1,17 @@
 package com.sg.twitterstreaming.service;
 
 import com.sg.twitterstreaming.config.Key;
+import com.sg.twitterstreaming.model.Data;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
 
 import java.io.IOException;
@@ -24,7 +26,7 @@ public class APIService implements TweetsService {
 
     private final String token = Key.BearerToken;
 
-    private final String baseURL = "https://api.twitter.com/2/tweets/search/recent?max_results=20&tweet.fields=public_metrics&";
+    private final String baseURL = "https://api.twitter.com/2/tweets/search/recent?max_results=20&";
 
     public APIService() {
         restTemplate = new RestTemplate();
@@ -39,19 +41,19 @@ public class APIService implements TweetsService {
 
 
     @Override
-    public Object fetchTweetsByKeyword(String keyword) {
-        return restTemplate.getForObject(baseURL + "query={keyword}", Object.class, keyword);
+    public ResponseEntity<?> recentSearchTweetsByKeyword(String keyword,String nextToken)  {
+        try {
+            if(nextToken==null) {
+                return restTemplate.getForEntity(baseURL + "query={keyword}", Data.class, keyword);
+            } else {
+                return restTemplate.getForEntity(baseURL + "query={keyword}&next_token={nextToken}",Data.class,keyword,nextToken);
+            }
+        } catch (HttpClientErrorException | HttpServerErrorException e) {
+            return new ResponseEntity<Object>(e.getMessage(),e.getStatusCode());
+        }
     }
 
-    @Override
-    public ResponseEntity<?> fetchTweetsByUsername(String username) {
-        return null;
-    }
 
-    @Override
-    public ResponseEntity<?> fetchTweetsByKeywordAndUsername(String keyword, String username) {
-        return null;
-    }
 
     @Override
     public Flux<String> startTweetsStreaming() {
