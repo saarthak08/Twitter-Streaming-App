@@ -1,14 +1,11 @@
 package com.sg.twitterstreaming.controller;
 
-import com.sg.twitterstreaming.model.Data;
 import com.sg.twitterstreaming.service.APIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.Disposable;
 import reactor.core.publisher.Flux;
+import java.util.Map;
 
 
 @RestController
@@ -24,12 +21,27 @@ public class TweetsController {
     }
 
     @GetMapping(value = "/search")
-    public Object recentSearchTweets(@RequestParam(name = "keyword") String keyword, @RequestParam(name="next_token",required = false) String nextToken) {
-        return apiService.recentSearchTweetsByKeyword(keyword,nextToken).getBody();
+    public Object recentSearchTweets(@RequestParam(name = "keyword") String keyword, @RequestParam(name = "next_token", required = false) String nextToken) {
+        return apiService.recentSearchTweetsByKeyword(keyword, nextToken).getBody();
     }
 
-    @GetMapping(value = "/stream", produces = {MediaType.TEXT_EVENT_STREAM_VALUE})
+    @GetMapping(value = "/sample-stream", produces = {MediaType.TEXT_EVENT_STREAM_VALUE})
+    public Flux<String> startSampleTweetsStreaming() {
+        return apiService.startSampleTweetsStreaming();
+    }
+
+    @GetMapping(value = "/live-stream", produces = {MediaType.TEXT_EVENT_STREAM_VALUE})
     public Flux<String> startTweetsStreaming() {
-        return apiService.startTweetsStreaming();
+        return apiService.startRealtimeTweetsStreaming();
+    }
+
+    @GetMapping(value = "/live-stream/rules")
+    public Object getRules() {
+        return apiService.getRules().getBody();
+    }
+
+    @PostMapping(value = "/live-stream/rules")
+    public Object postRules(@RequestBody Map<String, Object> requestObject) {
+        return apiService.postRules(requestObject).getBody();
     }
 }

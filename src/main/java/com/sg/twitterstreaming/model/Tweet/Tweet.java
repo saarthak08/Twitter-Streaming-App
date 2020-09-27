@@ -1,4 +1,4 @@
-package com.sg.twitterstreaming.model;
+package com.sg.twitterstreaming.model.Tweet;
 
 import lombok.Data;
 

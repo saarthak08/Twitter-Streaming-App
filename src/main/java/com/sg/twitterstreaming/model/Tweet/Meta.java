@@ -1,9 +1,11 @@
-package com.sg.twitterstreaming.model;
+package com.sg.twitterstreaming.model.Tweet;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import java.io.Serializable;
 
+@Data
 public class Meta implements Serializable {
 
     @JsonProperty("newest_id")
