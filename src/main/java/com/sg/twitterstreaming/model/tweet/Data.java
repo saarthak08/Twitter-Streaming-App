@@ -1,4 +1,4 @@
-package com.sg.twitterstreaming.model.Tweet;
+package com.sg.twitterstreaming.model.tweet;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

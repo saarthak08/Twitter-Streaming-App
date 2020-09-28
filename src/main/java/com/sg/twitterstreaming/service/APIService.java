@@ -1,7 +1,7 @@
 package com.sg.twitterstreaming.service;
 
 import com.sg.twitterstreaming.config.Key;
-import com.sg.twitterstreaming.model.Tweet.Data;
+import com.sg.twitterstreaming.model.tweet.Data;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
