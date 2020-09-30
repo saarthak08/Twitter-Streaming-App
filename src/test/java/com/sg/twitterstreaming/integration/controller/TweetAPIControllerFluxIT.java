@@ -1,4 +1,4 @@
-package com.sg.twitterstreaming.controller.api.it;
+package com.sg.twitterstreaming.integration.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +8,7 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
-public class FluxStreamIT {
+public class TweetAPIControllerFluxIT {
 
     @Autowired
     private WebTestClient webTestClient;

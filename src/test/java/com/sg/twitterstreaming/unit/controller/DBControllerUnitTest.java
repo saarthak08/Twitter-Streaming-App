@@ -1,4 +1,4 @@
-package com.sg.twitterstreaming.controller.db;
+package com.sg.twitterstreaming.unit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sg.twitterstreaming.controller.TweetAPIController;

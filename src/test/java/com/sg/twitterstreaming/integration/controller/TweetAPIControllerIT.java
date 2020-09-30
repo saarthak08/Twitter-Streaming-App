@@ -1,4 +1,4 @@
-package com.sg.twitterstreaming.controller.api.it;
+package com.sg.twitterstreaming.integration.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +10,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class APIControllerIT {
+public class TweetAPIControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
