@@ -1,4 +1,4 @@
-package com.sg.twitterstreaming.controller.api.unit_test;
+package com.sg.twitterstreaming.controller.api.ut;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -29,7 +29,7 @@ import java.util.Map;
 
 // Unit Test for Tweet API Controller REST APIs
 @WebMvcTest(TweetAPIController.class)
-public class APIUnitTest {
+public class APIControllerUnitTest {
 
     @Autowired
     private MockMvc mockMvc;
