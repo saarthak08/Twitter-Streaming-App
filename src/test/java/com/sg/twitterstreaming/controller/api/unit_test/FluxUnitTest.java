@@ -1,4 +1,4 @@
-package com.sg.twitterstreaming.controller.api;
+package com.sg.twitterstreaming.controller.api.unit_test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sg.twitterstreaming.controller.TweetAPIController;
@@ -18,7 +18,7 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 
 @WebFluxTest(TweetAPIController.class)
-public class TweetAPIControllerFluxUnitTest {
+public class FluxUnitTest {
 
     @Autowired
     private WebTestClient webTestClient;

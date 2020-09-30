@@ -32,3 +32,6 @@ build/
 ### VS Code ###
 .vscode/
 src/main/java/com/sg/twitterstreaming/config/Key.java
+
+.DS_Store
+*.DS_Store
