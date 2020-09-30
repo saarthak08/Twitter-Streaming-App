@@ -1,6 +1,7 @@
 package com.sg.twitterstreaming.service;
 import com.sg.twitterstreaming.config.Key;
 import com.sg.twitterstreaming.model.tweet.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
+
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Map;
@@ -29,19 +31,20 @@ public class TweetAPIService {
     private final String baseSearchURL = "https://api.twitter.com/2/tweets/search/recent?max_results=20&";
     private final String baseRuleURL = "https://api.twitter.com/2/tweets/search/stream/rules";
 
+    @Autowired
     public TweetAPIService() {
         webClient = WebClient.create();
         restTemplate = new RestTemplate();
         restTemplate.getInterceptors().add(new ClientHttpRequestInterceptor() {
             @Override
-            public ClientHttpResponse intercept(HttpRequest httpRequest, byte[] bytes, ClientHttpRequestExecution clientHttpRequestExecution) throws IOException {
+            public ClientHttpResponse intercept(HttpRequest httpRequest, byte[] bytes, ClientHttpRequestExecution clientHttpRequestExecution) throws IOException, IOException {
                 httpRequest.getHeaders().add("Authorization", "Bearer " + token);
                 return clientHttpRequestExecution.execute(httpRequest, bytes);
             }
         });
     }
 
-    public ResponseEntity<?> recentSearchTweetsByKeyword(String keyword, String nextToken) {
+    public Object recentSearchTweetsByKeyword(String keyword, String nextToken) {
         try {
             if (nextToken == null) {
                 return restTemplate.getForEntity(baseSearchURL + "query={keyword}", Data.class, keyword);

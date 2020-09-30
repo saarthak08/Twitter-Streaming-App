@@ -4,6 +4,7 @@ import com.sg.twitterstreaming.repository.TweetRepository;
 import com.sg.twitterstreaming.service.TweetAPIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
@@ -24,7 +25,7 @@ public class TweetAPIController {
 
     @GetMapping(value = "/search")
     public Object recentSearchTweets(@RequestParam(name = "keyword") String keyword, @RequestParam(name = "next_token", required = false) String nextToken) {
-        return tweetApiService.recentSearchTweetsByKeyword(keyword, nextToken).getBody();
+        return ((ResponseEntity<?>)(tweetApiService.recentSearchTweetsByKeyword(keyword,nextToken))).getBody();
     }
 
     @GetMapping(value = "/sample-stream", produces = {MediaType.TEXT_EVENT_STREAM_VALUE})
