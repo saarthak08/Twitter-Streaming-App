@@ -1,4 +1,5 @@
 package com.sg.twitterstreaming.service;
+
 import com.sg.twitterstreaming.config.Key;
 import com.sg.twitterstreaming.model.tweet.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,15 +45,11 @@ public class TweetAPIService {
         });
     }
 
-    public Object recentSearchTweetsByKeyword(String keyword, String nextToken) {
-        try {
-            if (nextToken == null) {
-                return restTemplate.getForEntity(baseSearchURL + "query={keyword}", Data.class, keyword);
-            } else {
-                return restTemplate.getForEntity(baseSearchURL + "query={keyword}&next_token={nextToken}", Data.class, keyword, nextToken);
-            }
-        } catch (HttpClientErrorException | HttpServerErrorException e) {
-            return new ResponseEntity<Object>(e.getMessage(), e.getStatusCode());
+    public ResponseEntity<?> recentSearchTweetsByKeyword(String keyword, String nextToken) {
+        if (nextToken == null) {
+            return restTemplate.getForEntity(baseSearchURL + "query={keyword}", Data.class, keyword);
+        } else {
+            return restTemplate.getForEntity(baseSearchURL + "query={keyword}&next_token={nextToken}", Data.class, keyword, nextToken);
         }
     }
 
@@ -78,11 +75,7 @@ public class TweetAPIService {
     }
 
     public ResponseEntity<?> getRealtimeStreamRules() {
-        try {
-            return restTemplate.getForEntity(baseRuleURL, com.sg.twitterstreaming.model.streamrule.Data.class);
-        } catch (HttpClientErrorException | HttpServerErrorException e) {
-            return new ResponseEntity<Object>(e.getMessage(), e.getStatusCode());
-        }
+        return restTemplate.getForEntity(baseRuleURL, com.sg.twitterstreaming.model.streamrule.Data.class);
     }
 
     public ResponseEntity<Object> postRealtimeStreamRules(Map<String, Object> requestObject) {

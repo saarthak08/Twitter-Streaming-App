@@ -48,8 +48,8 @@ public class TweetAPIControllerUnitTest {
         tweetList.add(new Tweet((long)1,"test tweet"));
         data.setTweetList(tweetList);
         ResponseEntity<?> responseEntity=new ResponseEntity<>(data, HttpStatus.OK);
-        when(tweetAPIService.recentSearchTweetsByKeyword(anyString(),anyString()))
-        .thenReturn(responseEntity);
+        Mockito.<ResponseEntity<?>>when(tweetAPIService.recentSearchTweetsByKeyword(anyString(),anyString()))
+                .thenReturn(responseEntity);
         String expectedResponse = objectMapper.writeValueAsString(data);
         MvcResult mvcResult=this.mockMvc.perform(get("/api/tweets/search")
         .param("keyword","test")
