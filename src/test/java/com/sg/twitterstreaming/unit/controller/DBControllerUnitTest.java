@@ -1,15 +1,11 @@
 package com.sg.twitterstreaming.unit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sg.twitterstreaming.controller.TweetAPIController;
 import com.sg.twitterstreaming.controller.TweetDBController;
-import com.sg.twitterstreaming.model.streamrule.StreamRule;
 import com.sg.twitterstreaming.model.tweet.Data;
 import com.sg.twitterstreaming.model.tweet.Tweet;
 import com.sg.twitterstreaming.repository.TweetRepository;
-import com.sg.twitterstreaming.service.TweetAPIService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -18,15 +14,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
