@@ -1,11 +1,13 @@
 import React from "react";
-import SearchForm from "../components/SearchForm";
+import Header from "../components/Header";
+import RecentSearchForm from "../components/RecentSearchForm";
 import TweetList from "../components/TweetList";
 
 const HomePage = () => {
     return (
         <div>
-            <SearchForm />
+            <Header/>
+            <RecentSearchForm />
             <TweetList />
         </div>
     );
