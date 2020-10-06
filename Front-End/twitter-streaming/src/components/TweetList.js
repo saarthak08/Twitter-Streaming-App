@@ -1,5 +1,6 @@
 import React from "react";
 import Tweet from './Tweet';
+import {connect} from 'react-redux';
 
 const TweetList = (props) => {
     return (
@@ -13,4 +14,10 @@ const TweetList = (props) => {
     );
 };
 
-export default TweetList;
+const mapStateToProps = (state) => {
+    return {
+        tweets:state.tweets
+    };
+}
+
+export default connect(mapStateToProps)(TweetList);
