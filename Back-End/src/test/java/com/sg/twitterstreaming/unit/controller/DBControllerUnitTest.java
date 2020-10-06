@@ -36,7 +36,7 @@ public class DBControllerUnitTest {
     public void getAllOfflineTweetsTest() throws Exception {
         Data data=new Data();
         List<Tweet> tweetList=new ArrayList<>();
-        tweetList.add(new Tweet((long)1,"test tweet"));
+        tweetList.add(new Tweet());
         data.setTweetList(tweetList);
         String json=objectMapper.writeValueAsString(data);
         when(tweetRepository.findAll()).thenReturn(tweetList);
@@ -49,7 +49,7 @@ public class DBControllerUnitTest {
 
     @Test
     public void addTweetToDBTest() throws Exception {
-        Tweet test=new Tweet((long)1,"test tweet");
+        Tweet test=new Tweet();
         ResponseEntity<?> responseEntity= new ResponseEntity<>("Success", HttpStatus.OK);
         when(tweetRepository.save(test)).thenReturn(test);
         MvcResult mvcResult=mockMvc.perform(post("/api/tweets/offline/add")

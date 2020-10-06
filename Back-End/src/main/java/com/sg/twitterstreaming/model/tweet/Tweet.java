@@ -10,7 +10,6 @@ import java.io.Serializable;
 
 @Data
 @Entity
-@AllArgsConstructor
 public class Tweet implements Serializable {
 
     @Column(unique = true)
@@ -19,6 +18,12 @@ public class Tweet implements Serializable {
     private Long id;
 
     private String text;
+
+    @JsonProperty("created_at")
+    private String createdAt;
+
+    @JsonProperty("public_metrics")
+    private PublicMetrics publicMetrics;
 
     public Tweet() {
 

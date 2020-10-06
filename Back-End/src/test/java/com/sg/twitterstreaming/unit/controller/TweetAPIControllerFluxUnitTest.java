@@ -33,7 +33,7 @@ public class TweetAPIControllerFluxUnitTest {
     public void startSampleTweetsStreamingTest() throws Exception {
         Data data=new Data();
         List<Tweet> tweetList=new ArrayList<>();
-        tweetList.add(new Tweet((long)1,"test tweet"));
+        tweetList.add(new Tweet());
         data.setTweetList(tweetList);
         String dataString = objectMapper.writeValueAsString(data);
         List<String> json=new ArrayList<>();
@@ -49,7 +49,7 @@ public class TweetAPIControllerFluxUnitTest {
     public void startLiveTweetsStreamingTest() throws Exception {
         Data data=new Data();
         List<Tweet> tweetList=new ArrayList<>();
-        tweetList.add(new Tweet((long)1,"test tweet"));
+        tweetList.add(new Tweet());
         data.setTweetList(tweetList);
         String dataString = objectMapper.writeValueAsString(data);
         List<String> json=new ArrayList<>();

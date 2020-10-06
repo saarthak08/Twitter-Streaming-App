@@ -27,7 +27,7 @@ public class TweetAPIService {
 
     private final String token = Key.BearerToken;
 
-    private final String baseSearchURL = "https://api.twitter.com/2/tweets/search/recent?max_results=20&";
+    private final String baseSearchURL = "https://api.twitter.com/2/tweets/search/recent?max_results=20&tweet.fields=created_at,public_metrics&";
     private final String baseRuleURL = "https://api.twitter.com/2/tweets/search/stream/rules";
 
     @Autowired
@@ -53,7 +53,7 @@ public class TweetAPIService {
 
     public Flux<String> startSampleTweetsStreaming() {
         return webClient.get()
-                .uri("https://api.twitter.com/2/tweets/sample/stream")
+                .uri("https://api.twitter.com/2/tweets/sample/stream?tweet.fields=created_at,public_metrics")
                 .header("Authorization", "Bearer " + Key.BearerToken)
                 .retrieve()
                 .bodyToFlux(String.class)

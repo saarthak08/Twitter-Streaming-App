@@ -44,7 +44,7 @@ public class TweetAPIControllerUnitTest {
     public void recentSearchTweetsTest() throws Exception {
         Data data=new Data();
         List<Tweet> tweetList=new ArrayList<>();
-        tweetList.add(new Tweet((long)1,"test tweet"));
+        tweetList.add(new Tweet());
         data.setTweetList(tweetList);
         ResponseEntity<?> responseEntity=new ResponseEntity<>(data, HttpStatus.OK);
         Mockito.<ResponseEntity<?>>when(tweetAPIService.recentSearchTweetsByKeyword(anyString(),anyString()))
