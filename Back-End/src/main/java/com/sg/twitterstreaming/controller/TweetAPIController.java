@@ -11,7 +11,7 @@ import java.util.Map;
 
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8000")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/tweets/")
 public class TweetAPIController {
 
