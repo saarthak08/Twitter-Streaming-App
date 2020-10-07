@@ -1,13 +1,35 @@
 import React from "react";
+import moment from 'moment';
+import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Repeat, Favorite } from "@material-ui/icons";
 
 const Tweet = (props) => {
     return (
-        <div>
-            <h4>{props.index + 1}</h4>
-            <p>{props.tweet.text}</p>
-            <p>Time: {props.tweet.created_at}</p>
-            <p>Retweets: {props.tweet.public_metrics.retweet_count}</p>
-            <p>Likes: {props.tweet.public_metrics.like_count}</p>
+        <div id='tweetDiv'>
+            <Card>
+                <Card.Body id='tweetCardBody'>
+                    <Card.Text>
+                        {props.index + 1}) {props.tweet.text}
+                    </Card.Text>
+                    <Card.Subtitle
+                        className='mb-2 text-muted'
+                        id='tweetCardSubtitle'>
+                        {moment(props.tweet.created_at,'YYYY-MM-DDTHH:mm:ssZ').fromNow()}
+                    </Card.Subtitle>
+                    <OverlayTrigger
+                        placement='bottom'
+                        overlay={<Tooltip>Retweets</Tooltip>}>
+                        <Repeat id='repeatIcon' />
+                    </OverlayTrigger>{" "}
+                    {props.tweet.public_metrics.retweet_count}
+                    <OverlayTrigger
+                        placement='bottom'
+                        overlay={<Tooltip>Likes</Tooltip>}>
+                        <Favorite id='favoriteIcon' />
+                    </OverlayTrigger>{" "}
+                    {props.tweet.public_metrics.like_count}
+                </Card.Body>
+            </Card>
         </div>
     );
 };

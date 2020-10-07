@@ -1,0 +1,21 @@
+#tweetDiv {
+    margin-bottom:1rem;
+}
+
+#tweetCardSubtitle {
+    margin-left: 0.5rem;
+}
+
+#tweetCardBody {
+    background-color: #F7F7F7;
+}
+
+#repeatIcon {
+    margin-left: 0.5rem;
+    color: #182430;
+}
+
+#favoriteIcon {
+    margin-left:1rem;
+    color: red;
+}

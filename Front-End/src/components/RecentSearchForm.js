@@ -4,7 +4,7 @@ import { SingleDatePicker } from "react-dates";
 import { connect } from "react-redux";
 import { addTweets, clearTweets } from "../actions/TweetsActions";
 import { clearMeta, setMeta } from "../actions/MetaActions";
-import { Form, Col, InputGroup,Button } from "react-bootstrap";
+import { Form, Col, InputGroup, Button } from "react-bootstrap";
 import { setLoadingFalse, setLoadingTrue } from "../actions/LoadingAction";
 
 class RecentSearchForm extends React.Component {
@@ -20,31 +20,34 @@ class RecentSearchForm extends React.Component {
 
     onSubmitSearchQuery = (e) => {
         e.preventDefault();
-        this.props.dispatch(setLoadingTrue());
-        this.props.dispatch(clearTweets());
-        this.props.dispatch(clearMeta());
-        var apiUrl = `http://localhost:8080/api/tweets/search?keyword=`;
-        if (this.state.searchOption === "phrase") {
-            apiUrl = apiUrl.concat(`"${this.state.query}"`);
-        } else if (this.state.searchOption !== "keyword") {
-            apiUrl = apiUrl.concat(
-                `${this.state.searchOption}${this.state.query}`
-            );
-        } else {
-            apiUrl = apiUrl.concat(`${this.state.query}`);
-        }
+        if (this.state.query.length !== 0) {
+            this.props.dispatch(setLoadingTrue());
+            this.props.dispatch(clearTweets());
+            this.props.dispatch(clearMeta());
+            var apiUrl = `http://localhost:8080/api/tweets/search?keyword=`;
+            if (this.state.searchOption === "phrase") {
+                apiUrl = apiUrl.concat(`"${this.state.query}"`);
+            } else if (this.state.searchOption !== "keyword") {
+                apiUrl = apiUrl.concat(
+                    `${this.state.searchOption}${this.state.query}`
+                );
+            } else {
+                apiUrl = apiUrl.concat(`${this.state.query}`);
+            }
 
-        axios
-            .get(apiUrl)
-            .then((res) => {
-                this.props.dispatch(addTweets({ tweets: res.data.data }));
-                this.props.dispatch(setMeta({ meta: res.data.meta }));
-                this.props.dispatch(setLoadingFalse());
-            })
-            .catch((e) => {
-                console.log(e);
-                this.props.dispatch(setLoadingFalse());
-            });
+            axios
+                .get(apiUrl)
+                .then((res) => {
+                    console.log(res);
+                    this.props.dispatch(addTweets({ tweets: res.data.data }));
+                    this.props.dispatch(setMeta({ meta: res.data.meta }));
+                    this.props.dispatch(setLoadingFalse());
+                })
+                .catch((e) => {
+                    console.log(e);
+                    this.props.dispatch(setLoadingFalse());
+                });
+        }
     };
 
     render() {
@@ -55,10 +58,10 @@ class RecentSearchForm extends React.Component {
                     onSubmit={this.onSubmitSearchQuery}
                     className='searchForm'>
                     <Form.Row>
-                        <Col>
+                        <Col xs={5}>
                             <Form.Group>
                                 <Form.Label className='formLabel'>
-                                    Search Query
+                                    Search Query (*)
                                 </Form.Label>
                                 <InputGroup>
                                     <InputGroup.Prepend>
@@ -67,6 +70,7 @@ class RecentSearchForm extends React.Component {
                                         </InputGroup.Text>
                                     </InputGroup.Prepend>
                                     <Form.Control
+                                        required
                                         className='searchQueryInput'
                                         placeholder={this.state.inputValue}
                                         value={this.state.query}
@@ -132,13 +136,13 @@ class RecentSearchForm extends React.Component {
                         <Col>
                             <Form.Group>
                                 <Form.Label className='formLabel'>
-                                    Recent Date
+                                    Start Date
                                 </Form.Label>
                                 <br />
                                 <div className='customDatePickerDiv'>
                                     <SingleDatePicker
                                         anchorDirection='right'
-                                        placeholder='Select Recent Date'
+                                        placeholder='DD/MM/YYYY'
                                         block={true}
                                         date={this.state.date}
                                         onDateChange={(date) =>
@@ -156,7 +160,17 @@ class RecentSearchForm extends React.Component {
                     </Form.Row>
                     <Form.Row>
                         <Col id='buttonColumn'>
-                            <Button type='submit' id='searchButton'>Search</Button>
+                            <Button
+                                type='submit'
+                                id='searchButton'
+                                style={{
+                                    backgroundColor:
+                                        this.state.query.length === 0
+                                            ? "grey"
+                                            : "#157AF6",
+                                }}>
+                                Search
+                            </Button>
                         </Col>
                     </Form.Row>
                 </Form>
