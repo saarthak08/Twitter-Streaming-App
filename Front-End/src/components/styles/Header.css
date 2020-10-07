@@ -1,0 +1,50 @@
+#container {
+    background-color: #182430;
+    min-width: 350px;
+}
+
+#homeIcon {
+    margin-top: 0.1rem;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: gray;
+}
+
+#homeIcon:hover {
+    color:white
+}
+
+
+.appName {
+    color: white;
+    display: inline-flex;
+    text-decoration: solid;
+    text-shadow: aquamarine;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+}
+
+@media (max-width: 600px) {
+    .appName {
+        font-size: larger;
+    }
+}
+
+#navbarToggle {
+    border-color: white;
+    font-size: 1rem;
+}
+
+
+.linksStyle {
+    padding-top: 1rem;
+    text-decoration:none
+}
+
+.linksStyle:hover {
+    color:white;
+    text-decoration: none;
+}
+
+

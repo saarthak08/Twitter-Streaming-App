@@ -2,6 +2,11 @@
   "short_name": "Twitter Streaming",
   "name": "Twitter Streaming",
   "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    }
   ],
   "start_url": ".",
   "display": "standalone",

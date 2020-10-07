@@ -3,6 +3,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import { addTweets, clearTweets } from "../actions/TweetsActions";
 import { clearMeta, setMeta } from "../actions/MetaActions";
+import { setLoadingFalse, setLoadingTrue } from "../actions/LoadingAction";
 
 class RecentSearchForm extends React.Component {
     constructor(props) {
@@ -14,9 +15,10 @@ class RecentSearchForm extends React.Component {
     }
 
     onSubmitSearchQuery = (e) => {
+        e.preventDefault();
+        this.props.dispatch(setLoadingTrue());
         this.props.dispatch(clearTweets());
         this.props.dispatch(clearMeta());
-        e.preventDefault();
         var apiUrl = `http://localhost:8080/api/tweets/search?keyword=`;
         if (this.state.searchOption === "phrase") {
             apiUrl = apiUrl.concat(`"${this.state.query}"`);
@@ -33,14 +35,18 @@ class RecentSearchForm extends React.Component {
             .then((res) => {
                 this.props.dispatch(addTweets({ tweets: res.data.data }));
                 this.props.dispatch(setMeta({ meta: res.data.meta }));
+                this.props.dispatch(setLoadingFalse());
             })
-            .catch((e) => console.log(e));
+            .catch((e) => {
+                console.log(e);
+                this.props.dispatch(setLoadingFalse());
+            });
     };
 
     render() {
         return (
             <div>
-                <h4>Recent Tweets Search</h4>
+                <h3>Recent Tweets Search</h3>
                 <form onSubmit={this.onSubmitSearchQuery}>
                     <input
                         value={this.state.query}
@@ -60,6 +66,7 @@ class RecentSearchForm extends React.Component {
                         <option value='phrase'>Search Exact Phrase</option>
                         <option value='%23'>Hashtag</option>
                     </select>
+                    &nbsp;
                     <button>Search</button>
                 </form>
             </div>

@@ -3,7 +3,7 @@ import React from 'react';
 const SavedTweetsPage = () => {
     return (
         <div>
-            Saved Tweets Page
+            <h3>Saved Tweets</h3>
         </div>
     )
 }
