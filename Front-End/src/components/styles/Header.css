@@ -1,6 +1,6 @@
 #container {
     background-color: #182430;
-    min-width: 350px;
+    min-width: 385px;
 }
 
 #homeIcon {
@@ -15,6 +15,12 @@
     color:white
 }
 
+.logo {
+    height: 36px;
+    width: 36px;
+    margin-right: 0.5rem;
+    margin-bottom: 0.4rem;
+}
 
 .appName {
     color: white;
@@ -25,15 +31,25 @@
         "Lucida Sans", Arial, sans-serif;
 }
 
-@media (max-width: 600px) {
-    .appName {
-        font-size: larger;
-    }
-}
+
 
 #navbarToggle {
     border-color: white;
     font-size: 1rem;
+}
+
+@media (max-width: 600px) {
+    .appName {
+        font-size: larger;
+    }
+    .logo {
+        height: 30px;
+        width: 30px;
+        margin-bottom: 0.5rem;
+    }
+    #navbarToggle {
+        font-size: 0.75rem;
+    }
 }
 
 

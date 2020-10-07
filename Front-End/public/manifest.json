@@ -1,10 +1,10 @@
 {
-  "short_name": "Twitter Streaming",
-  "name": "Twitter Streaming",
+  "short_name": "Twitter Streaming App",
+  "name": "Twitter Streaming App",
   "icons": [
     {
       "src": "favicon.png",
-      "sizes": "96x96",
+      "sizes": "240x240",
       "type": "image/png"
     }
   ],

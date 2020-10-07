@@ -1,0 +1,46 @@
+.searchForm {
+    margin-top: 1.5rem;
+}
+
+.formSelect {
+    border-radius: 1%;
+}
+
+
+.searchQueryInput {
+    border-radius: 1%;
+    text-shadow: #182430;
+    color:'red';
+    overflow: scroll;
+    overflow-x: scroll;
+    text-overflow: ellipsis
+}
+
+.formLabel {
+    margin-left: 0.2rem;
+}
+
+
+.customDatePickerDiv {
+    margin-right: 0.5rem;
+}
+
+
+
+.DateInput_input {
+    font-size: 18px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-overflow: ellipsis;
+    padding: 7px 11px 7px;
+    line-height: 20px;
+}
+
+#searchButton {
+    border-radius: 1.5rem;
+    margin-left: 0.5%;
+    margin-top: 0.5%;
+    font-size: large;
+    padding: 5px 15px 5px 15px
+}
+
+

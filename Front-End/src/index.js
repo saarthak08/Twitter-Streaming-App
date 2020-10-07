@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "react-dates/initialize";
+import "react-dates/lib/css/_datepicker.css";
 import './style.css';
 import AppRouter from "./routers/AppRouter";
 import * as serviceWorker from "./serviceWorker";

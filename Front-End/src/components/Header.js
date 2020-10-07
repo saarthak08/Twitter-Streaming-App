@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import Home from "@material-ui/icons/Home";
 import { Navbar, Nav } from "react-bootstrap";
+import Logo from "./assets/logo.svg";
 
 const Header = () => {
     const history = useHistory();
@@ -14,6 +15,7 @@ const Header = () => {
             id='container'
             sticky='top'>
             <Navbar.Brand>
+                <img src={Logo} className='logo' alt='Logo' />{" "}
                 <h2 className='appName'>Twitter Streaming App</h2>
             </Navbar.Brand>
             <Navbar.Toggle
@@ -30,7 +32,7 @@ const Header = () => {
                         Stream Tweets
                     </Nav.Link>
                     <Nav.Link className='linksStyle' href='/saved'>
-                        Saved Tweets{" "}
+                        Saved Tweets{"  "}
                     </Nav.Link>
                     <Nav.Link
                         href='/'

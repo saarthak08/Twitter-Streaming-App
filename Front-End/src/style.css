@@ -1,11 +1,22 @@
 @import './components/styles/Header.css';
+@import './components/styles/RecentSearchForm.css';
 
 
 h1 {
     margin: 0;
 }
 
+.pageTitle {
+    margin-top: 1rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.pageBody {
+    margin-left:0.4rem
+}
+
 body {  
+    min-width: 385px;
     font-family:'Montserrat', sans-serif;   
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
