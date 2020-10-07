@@ -1,5 +1,6 @@
 @import './components/styles/Header.css';
 @import './components/styles/RecentSearchForm.css';
+@import './components/styles/TweetList.css';
 
 
 h1 {

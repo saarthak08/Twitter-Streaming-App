@@ -36,11 +36,16 @@
 }
 
 #searchButton {
+    width: 150px;
     border-radius: 1.5rem;
     margin-left: 0.5%;
     margin-top: 0.5%;
     font-size: large;
-    padding: 5px 15px 5px 15px
+    padding: 6px 15px 6px 15px
+}
+
+#buttonColumn {
+    text-align: center;
 }
 
 

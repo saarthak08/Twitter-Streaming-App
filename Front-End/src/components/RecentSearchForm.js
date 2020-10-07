@@ -19,7 +19,6 @@ class RecentSearchForm extends React.Component {
     }
 
     onSubmitSearchQuery = (e) => {
-        console.log('hello');
         e.preventDefault();
         this.props.dispatch(setLoadingTrue());
         this.props.dispatch(clearTweets());
@@ -156,7 +155,7 @@ class RecentSearchForm extends React.Component {
                         </Col>
                     </Form.Row>
                     <Form.Row>
-                        <Col>
+                        <Col id='buttonColumn'>
                             <Button type='submit' id='searchButton'>Search</Button>
                         </Col>
                     </Form.Row>

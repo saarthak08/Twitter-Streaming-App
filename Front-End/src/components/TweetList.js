@@ -5,9 +5,11 @@ import { Spinner } from "react-bootstrap";
 
 const TweetList = (props) => {
     return (
-        <div>
+        <div className='pageBody' id='tweetListDiv'>
             {props.loading ? (
-                <Spinner animation='border' variant='dark' />
+                <div id='spinnerDiv'> 
+                <Spinner id='spinner' animation='border' variant='dark' />
+                </div>
             ) : (
                 props.tweets.map((tweet, index) => {
                     return (
