@@ -14,20 +14,20 @@ const Tweet = (props) => {
                     <Card.Subtitle
                         className='mb-2 text-muted'
                         id='tweetCardSubtitle'>
-                        {moment(props.tweet.created_at,'YYYY-MM-DDTHH:mm:ssZ').fromNow()}
+                        {moment(props.tweet.createdAt,'YYYY-MM-DDTHH:mm:ssZ').fromNow()}
                     </Card.Subtitle>
                     <OverlayTrigger
                         placement='bottom'
                         overlay={<Tooltip>Retweets</Tooltip>}>
                         <Repeat id='repeatIcon' />
                     </OverlayTrigger>{" "}
-                    {props.tweet.public_metrics.retweet_count}
+                    {props.tweet.publicMetrics.retweet_count}
                     <OverlayTrigger
                         placement='bottom'
                         overlay={<Tooltip>Likes</Tooltip>}>
                         <Favorite id='favoriteIcon' />
                     </OverlayTrigger>{" "}
-                    {props.tweet.public_metrics.like_count}
+                    {props.tweet.publicMetrics.like_count}
                 </Card.Body>
             </Card>
         </div>

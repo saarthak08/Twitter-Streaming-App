@@ -1,8 +1,7 @@
-@import './components/styles/Header.css';
-@import './components/styles/RecentSearchForm.css';
-@import './components/styles/TweetList.css';
-@import './components/styles/Tweet.css';
-
+@import "./components/styles/Header.css";
+@import "./components/styles/RecentSearchForm.css";
+@import "./components/styles/TweetList.css";
+@import "./components/styles/Tweet.css";
 
 h1 {
     margin: 0;
@@ -10,22 +9,33 @@ h1 {
 
 .pageTitle {
     margin-top: 1rem;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+        sans-serif;
 }
 
 .pageBody {
-    margin-left:0.4rem
+    margin-left: 0.4rem;
 }
 
-body {  
+body {
     min-width: 385px;
-    font-family:'Montserrat', sans-serif;   
+    font-family: "Montserrat", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
 }
 
+.helperTextDiv {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.helperText {
+    font-size: x-large;
+    font-weight: 500;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}

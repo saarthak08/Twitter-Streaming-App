@@ -16,6 +16,7 @@
     text-overflow: ellipsis
 }
 
+
 .formLabel {
     margin-left: 0.2rem;
 }
@@ -28,6 +29,7 @@
 
 
 .DateInput_input {
+    text-align: center;
     font-size: 18px;
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-overflow: ellipsis;
@@ -47,5 +49,6 @@
 #buttonColumn {
     text-align: center;
 }
+
 
 

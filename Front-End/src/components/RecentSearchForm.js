@@ -2,16 +2,19 @@ import React from "react";
 import axios from "axios";
 import { SingleDatePicker } from "react-dates";
 import { connect } from "react-redux";
+import moment from "moment";
 import { addTweets, clearTweets } from "../actions/TweetsActions";
 import { clearMeta, setMeta } from "../actions/MetaActions";
 import { Form, Col, InputGroup, Button } from "react-bootstrap";
-import { setLoadingFalse, setLoadingTrue } from "../actions/LoadingAction";
 
 class RecentSearchForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             query: "",
+            date: undefined,
+            formattedDate: "",
+            calendarFocused: false,
             searchOption: "keyword",
             inputPrepend: ":",
             inputValue: "Enter Keyword",
@@ -21,7 +24,9 @@ class RecentSearchForm extends React.Component {
     onSubmitSearchQuery = (e) => {
         e.preventDefault();
         if (this.state.query.length !== 0) {
-            this.props.dispatch(setLoadingTrue());
+            this.props.setSpinner(true);
+            this.props.setError(false);
+            this.props.setMessage(false);
             this.props.dispatch(clearTweets());
             this.props.dispatch(clearMeta());
             var apiUrl = `http://localhost:8080/api/tweets/search?keyword=`;
@@ -34,19 +39,57 @@ class RecentSearchForm extends React.Component {
             } else {
                 apiUrl = apiUrl.concat(`${this.state.query}`);
             }
-
+            if (this.state.formattedDate.length !== 0) {
+                apiUrl = apiUrl.concat(
+                    `&start_time=${this.state.formattedDate}.000Z`
+                );
+            }
+            console.log(apiUrl);
             axios
                 .get(apiUrl)
                 .then((res) => {
                     console.log(res);
                     this.props.dispatch(addTweets({ tweets: res.data.data }));
+                    if(res.data.data.length===0) {
+                        this.props.setMessage(true);
+                    }
                     this.props.dispatch(setMeta({ meta: res.data.meta }));
-                    this.props.dispatch(setLoadingFalse());
+                    this.props.setSpinner(false);
                 })
                 .catch((e) => {
-                    console.log(e);
-                    this.props.dispatch(setLoadingFalse());
+                    this.props.setSpinner(false);
+                    this.props.setError(true);
                 });
+        }
+    };
+
+    onChangeSelectOptions = (e) => {
+        this.setState({
+            searchOption: e.target.value,
+        });
+        if (e.target.value === "keyword" || e.target.value === "phrase") {
+            this.setState({
+                inputPrepend: ":",
+            });
+            if (e.target.value === "keyword") {
+                this.setState({
+                    inputValue: "Enter Keyword",
+                });
+            } else {
+                this.setState({
+                    inputValue: "Enter Phrase",
+                });
+            }
+        } else if (e.target.value === "from:") {
+            this.setState({
+                inputPrepend: "@",
+                inputValue: "Enter Username",
+            });
+        } else if (e.target.value === "%23") {
+            this.setState({
+                inputPrepend: "#",
+                inputValue: "Enter Hashtag",
+            });
         }
     };
 
@@ -54,6 +97,7 @@ class RecentSearchForm extends React.Component {
         return (
             <div className='pageBody'>
                 <h3 className='pageTitle'>Recent Tweets Search</h3>
+                <p>Search Recent Tweets from the last 7 days.</p>
                 <Form
                     onSubmit={this.onSubmitSearchQuery}
                     className='searchForm'>
@@ -92,38 +136,7 @@ class RecentSearchForm extends React.Component {
                                     className='formSelect'
                                     as='select'
                                     custom
-                                    onChange={(e) => {
-                                        this.setState({
-                                            searchOption: e.target.value,
-                                        });
-                                        if (
-                                            e.target.value === "keyword" ||
-                                            e.target.value === "phrase"
-                                        ) {
-                                            this.setState({
-                                                inputPrepend: ":",
-                                            });
-                                            if (e.target.value === "keyword") {
-                                                this.setState({
-                                                    inputValue: "Enter Keyword",
-                                                });
-                                            } else {
-                                                this.setState({
-                                                    inputValue: "Enter Phrase",
-                                                });
-                                            }
-                                        } else if (e.target.value === "from:") {
-                                            this.setState({
-                                                inputPrepend: "@",
-                                                inputValue: "Enter Username",
-                                            });
-                                        } else if (e.target.value === "%23") {
-                                            this.setState({
-                                                inputPrepend: "#",
-                                                inputValue: "Enter Hashtag",
-                                            });
-                                        }
-                                    }}>
+                                    onChange={this.onChangeSelectOptions}>
                                     <option value='keyword'>Keyword</option>
                                     <option value='from:'>Username</option>
                                     <option value='phrase'>
@@ -141,18 +154,34 @@ class RecentSearchForm extends React.Component {
                                 <br />
                                 <div className='customDatePickerDiv'>
                                     <SingleDatePicker
+                                        displayFormat='DD/MM/YYYY'
                                         anchorDirection='right'
+                                        date={this.state.date}
                                         placeholder='DD/MM/YYYY'
                                         block={true}
-                                        date={this.state.date}
-                                        onDateChange={(date) =>
-                                            this.setState({ date })
-                                        }
-                                        focused={this.state.focused}
+                                        onDateChange={(date) => {
+                                            this.setState({
+                                                date,
+                                                formattedDate: moment
+                                                    .utc(date)
+                                                    .format(
+                                                        "YYYY-MM-DDTHH:mm:ss"
+                                                    ),
+                                            });
+                                        }}
+                                        focused={this.state.calendarFocused}
                                         onFocusChange={({ focused }) =>
-                                            this.setState({ focused })
+                                            this.setState({
+                                                calendarFocused: focused,
+                                            })
                                         }
                                         numberOfMonths={1}
+                                        isOutsideRange={(day) =>
+                                            day.isAfter(moment()) ||
+                                            day.isBefore(
+                                                moment().subtract(7, "days")
+                                            )
+                                        }
                                     />
                                 </div>
                             </Form.Group>
