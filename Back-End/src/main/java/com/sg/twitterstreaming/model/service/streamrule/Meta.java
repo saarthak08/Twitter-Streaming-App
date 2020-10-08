@@ -1,4 +1,4 @@
-package com.sg.twitterstreaming.model.streamrule;
+package com.sg.twitterstreaming.model.service.streamrule;
 
 import lombok.Data;
 

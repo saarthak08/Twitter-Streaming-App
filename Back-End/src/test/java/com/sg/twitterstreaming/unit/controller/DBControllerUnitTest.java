@@ -2,8 +2,10 @@ package com.sg.twitterstreaming.unit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sg.twitterstreaming.controller.TweetDBController;
-import com.sg.twitterstreaming.model.tweet.Data;
-import com.sg.twitterstreaming.model.tweet.Tweet;
+import com.sg.twitterstreaming.model.DataResponse;
+import com.sg.twitterstreaming.model.TweetResponse;
+import com.sg.twitterstreaming.model.service.tweet.Data;
+import com.sg.twitterstreaming.model.service.tweet.Tweet;
 import com.sg.twitterstreaming.repository.TweetRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +36,10 @@ public class DBControllerUnitTest {
 
     @Test
     public void getAllOfflineTweetsTest() throws Exception {
-        Data data=new Data();
-        List<Tweet> tweetList=new ArrayList<>();
-        tweetList.add(new Tweet());
-        data.setTweetList(tweetList);
+        DataResponse data=new DataResponse();
+        List<TweetResponse> tweetList=new ArrayList<>();
+        tweetList.add(new TweetResponse());
+        data.setTweetResponse(tweetList);
         String json=objectMapper.writeValueAsString(data);
         when(tweetRepository.findAll()).thenReturn(tweetList);
         MvcResult mvcResult=mockMvc.perform(get("/api/tweets/offline/get-all"))
@@ -49,7 +51,7 @@ public class DBControllerUnitTest {
 
     @Test
     public void addTweetToDBTest() throws Exception {
-        Tweet test=new Tweet();
+        TweetResponse test=new TweetResponse();
         ResponseEntity<?> responseEntity= new ResponseEntity<>("Success", HttpStatus.OK);
         when(tweetRepository.save(test)).thenReturn(test);
         MvcResult mvcResult=mockMvc.perform(post("/api/tweets/offline/add")

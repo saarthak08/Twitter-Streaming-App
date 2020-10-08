@@ -1,13 +1,20 @@
-package com.sg.twitterstreaming.model.tweet;
+package com.sg.twitterstreaming.model.service.tweet;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
 @Data
-public class PublicMetrics implements Serializable {
+public class PublicMetrics implements  Serializable {
+
+    @Id
+    @JsonIgnore
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     @JsonProperty("retweet_count")
     private Long retweetCount;

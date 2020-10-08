@@ -6,9 +6,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sg.twitterstreaming.controller.TweetAPIController;
-import com.sg.twitterstreaming.model.streamrule.StreamRule;
-import com.sg.twitterstreaming.model.tweet.Data;
-import com.sg.twitterstreaming.model.tweet.Tweet;
+import com.sg.twitterstreaming.model.service.streamrule.StreamRule;
+import com.sg.twitterstreaming.model.service.tweet.Data;
+import com.sg.twitterstreaming.model.service.tweet.Tweet;
 import com.sg.twitterstreaming.service.TweetAPIService;
 import org.junit.jupiter.api.Test;
 
@@ -47,12 +47,13 @@ public class TweetAPIControllerUnitTest {
         tweetList.add(new Tweet());
         data.setTweetList(tweetList);
         ResponseEntity<?> responseEntity=new ResponseEntity<>(data, HttpStatus.OK);
-        Mockito.<ResponseEntity<?>>when(tweetAPIService.recentSearchTweetsByKeyword(anyString(),anyString()))
+        Mockito.<ResponseEntity<?>>when(tweetAPIService.recentSearchTweetsByKeyword(anyString(),anyString(),anyString()))
                 .thenReturn(responseEntity);
         String expectedResponse = objectMapper.writeValueAsString(data);
         MvcResult mvcResult=this.mockMvc.perform(get("/api/tweets/search")
         .param("keyword","test")
-        .param("next_token",""))
+        .param("next_token","")
+                .param("start_date",""))
                 .andReturn();
         String jsonResponse=mvcResult.getResponse().getContentAsString();
         assertThat(jsonResponse).isEqualTo(expectedResponse);
@@ -60,7 +61,7 @@ public class TweetAPIControllerUnitTest {
 
     @Test
     public void getRealtimeStreamRulesTest() throws Exception {
-        com.sg.twitterstreaming.model.streamrule.Data data=new com.sg.twitterstreaming.model.streamrule.Data();
+        com.sg.twitterstreaming.model.service.streamrule.Data data=new com.sg.twitterstreaming.model.service.streamrule.Data();
         List<StreamRule> ruleList = new ArrayList<>();
         ruleList.add(new StreamRule("1","test-rule"));
         data.setRuleList(ruleList);
@@ -75,7 +76,7 @@ public class TweetAPIControllerUnitTest {
 
     @Test
     public void setRealtimeStreamRulesTest() throws Exception {
-        com.sg.twitterstreaming.model.streamrule.Data data=new com.sg.twitterstreaming.model.streamrule.Data();
+        com.sg.twitterstreaming.model.service.streamrule.Data data=new com.sg.twitterstreaming.model.service.streamrule.Data();
         List<StreamRule> ruleList = new ArrayList<>();
         ruleList.add(new StreamRule("1","test-rule"));
         data.setRuleList(ruleList);

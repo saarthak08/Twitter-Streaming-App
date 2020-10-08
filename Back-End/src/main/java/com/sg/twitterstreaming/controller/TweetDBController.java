@@ -1,7 +1,9 @@
 package com.sg.twitterstreaming.controller;
 
-import com.sg.twitterstreaming.model.tweet.Data;
-import com.sg.twitterstreaming.model.tweet.Tweet;
+import com.sg.twitterstreaming.model.DataResponse;
+import com.sg.twitterstreaming.model.TweetResponse;
+import com.sg.twitterstreaming.model.service.tweet.Data;
+import com.sg.twitterstreaming.model.service.tweet.Tweet;
 import com.sg.twitterstreaming.repository.TweetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,14 +23,14 @@ public class TweetDBController {
     }
 
     @GetMapping("/get-all")
-    public Data getAllOfflineTweets() {
-        Data data = new Data();
-        data.setTweetList(tweetRepository.findAll());
+    public DataResponse getAllOfflineTweets() {
+        DataResponse data = new DataResponse();
+        data.setTweetResponse(tweetRepository.findAll());
         return data;
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addTweetToDB(@RequestBody Tweet tweet) {
+    public ResponseEntity<?> addTweetToDB(@RequestBody TweetResponse tweet) {
         try {
             tweetRepository.save(tweet);
             return new ResponseEntity<>("Success", HttpStatus.OK);

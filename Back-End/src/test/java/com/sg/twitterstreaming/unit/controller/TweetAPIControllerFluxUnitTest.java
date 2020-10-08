@@ -2,8 +2,8 @@ package com.sg.twitterstreaming.unit.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sg.twitterstreaming.controller.TweetAPIController;
-import com.sg.twitterstreaming.model.tweet.Data;
-import com.sg.twitterstreaming.model.tweet.Tweet;
+import com.sg.twitterstreaming.model.service.tweet.Data;
+import com.sg.twitterstreaming.model.service.tweet.Tweet;
 import com.sg.twitterstreaming.service.TweetAPIService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

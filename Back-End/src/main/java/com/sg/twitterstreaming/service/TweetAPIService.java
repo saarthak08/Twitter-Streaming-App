@@ -1,7 +1,7 @@
 package com.sg.twitterstreaming.service;
 
 import com.sg.twitterstreaming.config.Key;
-import com.sg.twitterstreaming.model.tweet.Data;
+import com.sg.twitterstreaming.model.service.tweet.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpRequest;
@@ -27,7 +27,7 @@ public class TweetAPIService {
 
     private final String token = Key.BearerToken;
 
-    private final String baseSearchURL = "https://api.twitter.com/2/tweets/search/recent?max_results=20&tweet.fields=created_at,public_metrics&";
+    private final String baseSearchURL = "https://api.twitter.com/2/tweets/search/recent?max_results=20&tweet.fields=created_at,public_metrics,attachments,author_id&expansions=attachments.media_keys,author_id&media.fields=url,preview_image_url&";
     private final String baseRuleURL = "https://api.twitter.com/2/tweets/search/stream/rules";
 
     @Autowired
@@ -43,17 +43,25 @@ public class TweetAPIService {
         });
     }
 
-    public ResponseEntity<?> recentSearchTweetsByKeyword(String keyword, String nextToken) {
+    public ResponseEntity<?> recentSearchTweetsByKeyword(String keyword, String nextToken,String startTime) {
         if (nextToken == null) {
-            return restTemplate.getForEntity(baseSearchURL + "query={keyword}", Data.class, keyword);
+            if(startTime!=null) {
+                return restTemplate.getForEntity(baseSearchURL + "query={keyword}&start_time={startTime}", Data.class, keyword,startTime);
+            } else {
+                return restTemplate.getForEntity(baseSearchURL + "query={keyword}", Data.class, keyword);
+            }
         } else {
-            return restTemplate.getForEntity(baseSearchURL + "query={keyword}&next_token={nextToken}", Data.class, keyword, nextToken);
+            if(startTime!=null) {
+                return restTemplate.getForEntity(baseSearchURL + "query={keyword}&start_time={startTime}&next_token={nextToken}", Data.class, keyword,startTime,nextToken);
+            } else {
+                return restTemplate.getForEntity(baseSearchURL + "query={keyword}&next_token={nextToken}", Data.class, keyword, nextToken);
+            }
         }
     }
 
     public Flux<String> startSampleTweetsStreaming() {
         return webClient.get()
-                .uri("https://api.twitter.com/2/tweets/sample/stream?tweet.fields=created_at,public_metrics")
+                .uri("https://api.twitter.com/2/tweets/sample/stream?tweet.fields=created_at,public_metrics,attachments,author_id&expansions=attachments.media_keys,author_id&media.fields=url,preview_image_url")
                 .header("Authorization", "Bearer " + Key.BearerToken)
                 .retrieve()
                 .bodyToFlux(String.class)
@@ -64,7 +72,7 @@ public class TweetAPIService {
 
     public Flux<String> startRealtimeTweetsStreaming() {
         return webClient.get()
-                .uri("https://api.twitter.com/2/tweets/search/stream")
+                .uri("https://api.twitter.com/2/tweets/search/stream?tweet.fields=created_at,public_metrics,attachments,author_id&expansions=attachments.media_keys,author_id&media.fields=url,preview_image_url")
                 .header("Authorization", "Bearer " + Key.BearerToken)
                 .retrieve()
                 .bodyToFlux(String.class)
@@ -73,7 +81,7 @@ public class TweetAPIService {
     }
 
     public ResponseEntity<?> getRealtimeStreamRules() {
-        return restTemplate.getForEntity(baseRuleURL, com.sg.twitterstreaming.model.streamrule.Data.class);
+        return restTemplate.getForEntity(baseRuleURL, com.sg.twitterstreaming.model.service.streamrule.Data.class);
     }
 
     public ResponseEntity<Object> postRealtimeStreamRules(Map<String, Object> requestObject) {

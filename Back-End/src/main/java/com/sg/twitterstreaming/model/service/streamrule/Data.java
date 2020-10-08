@@ -1,4 +1,4 @@
-package com.sg.twitterstreaming.model.tweet;
+package com.sg.twitterstreaming.model.service.streamrule;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -9,7 +9,7 @@ import java.util.List;
 public class Data implements Serializable {
 
     @JsonProperty("data")
-    private List<Tweet> tweetList;
+    private List<StreamRule> ruleList;
 
     @JsonProperty("meta")
     private Meta meta;

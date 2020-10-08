@@ -1,4 +1,4 @@
-package com.sg.twitterstreaming.model.tweet;
+package com.sg.twitterstreaming.model.service.tweet;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
