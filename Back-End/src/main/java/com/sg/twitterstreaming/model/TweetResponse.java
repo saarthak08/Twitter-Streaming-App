@@ -16,7 +16,7 @@ public class TweetResponse {
 
     @Column(unique = true)
     @Id
-    private Long id;
+    private String id;
 
     private String text;
 

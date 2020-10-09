@@ -9,7 +9,7 @@ import java.util.List;
 public class Tweet implements Serializable {
 
     @JsonProperty("id")
-    private Long id;
+    private String id;
 
     private String text;
 
