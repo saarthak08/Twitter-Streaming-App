@@ -8,7 +8,7 @@ import { Spinner } from "react-bootstrap";
 
 const TweetList = (props) => {
     const [isFetching, setIsFetching] = useState(false);
-    const [prevToken,setPrevToken]=useState('');
+    const [prevToken, setPrevToken] = useState("");
 
     useEffect(() => {
         const handleScroll = async () => {
@@ -18,13 +18,18 @@ const TweetList = (props) => {
             ) {
                 return;
             } else {
-                if (props.query !== ""&&!isFetching&&prevToken!==props.meta.next_token&&!isFetching) {
+                if (
+                    props.searchParams.query !== "" &&
+                    !isFetching &&
+                    prevToken !== props.meta.next_token &&
+                    !isFetching
+                ) {
                     setPrevToken(props.meta.next_token);
                     setIsFetching(true);
                     await searchRecentTweets({
                         nextToken: props.meta.next_token,
-                        query: props.query,
-                        startTime: props.startTime,
+                        query: props.searchParams.query,
+                        startTime: props.searchParams.startTime,
                     })
                         .then((res) => {
                             props.dispatch(
@@ -41,7 +46,7 @@ const TweetList = (props) => {
         };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [props,isFetching,prevToken]);
+    }, [props, isFetching, prevToken]);
 
     return (
         <div className='pageBody' id='tweetListDiv'>
@@ -83,8 +88,8 @@ const TweetList = (props) => {
 const mapStateToProps = (state) => {
     return {
         tweets: state.tweets,
-        loading: state.loading,
         meta: state.meta,
+        searchParams: state.searchParams,
     };
 };
 

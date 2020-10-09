@@ -1,5 +1,6 @@
 import { createStore, combineReducers } from "redux";
 import MetaReducer from "../reducers/MetaReducer";
+import SearchParametersReducer from "../reducers/SearchParametersReducer";
 import TweetsReducer from "../reducers/TweetsReducer";
 
 export default () => {
@@ -7,6 +8,7 @@ export default () => {
         combineReducers({
             tweets: TweetsReducer,
             meta:MetaReducer,
+            searchParams:SearchParametersReducer,
         })
     );
     return store;

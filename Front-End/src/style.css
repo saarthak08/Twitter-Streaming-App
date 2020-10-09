@@ -1,5 +1,5 @@
 @import "./components/styles/Header.css";
-@import "./components/styles/RecentSearchForm.css";
+@import "./components/styles/SearchRecentTweetsForm.css";
 @import "./components/styles/TweetList.css";
 @import "./components/styles/Tweet.css";
 @import "./components/styles/Footer.css";
@@ -18,7 +18,9 @@ h1 {
 }
 
 .pageBody {
-    margin-left: 0.4rem;
+    margin-left: 1rem;
+    margin-right:1rem;
+    margin-bottom: 4rem;
 }
 
 body {

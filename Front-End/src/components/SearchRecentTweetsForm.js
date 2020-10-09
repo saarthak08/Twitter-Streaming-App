@@ -6,8 +6,9 @@ import moment from "moment";
 import { addTweets, clearTweets } from "../actions/TweetsActions";
 import { clearMeta, setMeta } from "../actions/MetaActions";
 import { Form, Col, InputGroup, Button } from "react-bootstrap";
+import { setParams,clearParams } from "../actions/SearchParametersActions";
 
-class RecentSearchForm extends React.Component {
+class SearchRecentTweetsForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -42,8 +43,7 @@ class RecentSearchForm extends React.Component {
             }
             searchRecentTweets({query,startTime})
                 .then((res) => {
-                    this.props.setQuery(query);
-                    this.props.setStartTime(startTime);
+                    this.props.dispatch(setParams({query,startTime}));
                     this.props.dispatch(addTweets({ tweets: res.data.data }));
                     if (res.data.data.length === 0) {
                         this.props.setMessage(true);
@@ -52,6 +52,7 @@ class RecentSearchForm extends React.Component {
                     this.props.setSpinner(false);
                 })
                 .catch((e) => {
+                    this.props.dispatch(clearParams());
                     this.props.setSpinner(false);
                     this.props.setError(true);
                 });
@@ -203,4 +204,5 @@ class RecentSearchForm extends React.Component {
     }
 }
 
-export default connect()(RecentSearchForm);
+
+export default connect()(SearchRecentTweetsForm);

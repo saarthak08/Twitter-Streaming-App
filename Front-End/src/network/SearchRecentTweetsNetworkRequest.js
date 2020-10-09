@@ -16,11 +16,9 @@ export const searchRecentTweets = async ({
     if (nextToken.length !== 0) {
         params["next_token"] = nextToken;
     }
-    console.log(params);
     return await axios
         .get(apiUrl, { params: params })
         .then((res) => {
-            console.log(res);
             return res;
         })
         .catch((e) => {
