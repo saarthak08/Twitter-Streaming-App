@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
-@RequestMapping("/api/tweets/offline")
+@RequestMapping("/api/tweets/saved")
 public class TweetDBController {
 
     private final TweetRepository tweetRepository;
@@ -32,15 +32,20 @@ public class TweetDBController {
     @PostMapping("/add")
     public ResponseEntity<?> addTweetToDB(@RequestBody TweetResponse tweet) {
         try {
-            tweetRepository.save(tweet);
-            return new ResponseEntity<>("Success", HttpStatus.OK);
+            if (tweetRepository.findById((tweet.getId())).isEmpty()) {
+                tweetRepository.save(tweet);
+                return new ResponseEntity<>("Success", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Already Present", HttpStatus.ALREADY_REPORTED);
+            }
         } catch (Exception e) {
-            return new ResponseEntity<>("Error in adding tweet.", HttpStatus.BAD_REQUEST);
+            System.out.println(e.toString());
+            return new ResponseEntity<>("Error in adding tweet.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteTweetFromDB(@PathVariable Long id) {
+    public ResponseEntity<?> deleteTweetFromDB(@PathVariable String id) {
         try {
             tweetRepository.deleteById(id);
             return new ResponseEntity<>("Success", HttpStatus.OK);

@@ -23,14 +23,14 @@ public class TweetResponse {
     private String createdAt;
 
 
-    @OneToOne()
-    @JoinColumn(name="public_metrics_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "public_metrics_id")
     private PublicMetrics publicMetrics;
 
-    @OneToOne()
-    @JoinColumn(name="user_id")
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private List<Media> media;
 }
