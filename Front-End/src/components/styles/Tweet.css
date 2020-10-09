@@ -3,11 +3,12 @@
 }
 
 #tweetCardSubtitle {
-    margin-left: 0.5rem;
+    margin-left: 0.8rem;
+    font-size: 0.9rem;
 }
 
 #tweetCardBody {
-    background-color: #F7F7F7;
+    background-color:rgb(241, 249, 252);
 }
 
 #repeatIcon {
@@ -15,7 +16,41 @@
     color: #182430;
 }
 
+#tweetText {
+    margin-left: 0.4rem;
+}
+
 #favoriteIcon {
     margin-left:1rem;
     color: red;
+}
+
+#cardHeaderText {
+    font-weight: bold;
+    font-size: large;
+    font-family: 'Piazzolla';
+    margin-left: 0.5rem;
+}
+
+
+.arrowImageForward {
+    background-color:rgba(119, 116, 116, 0.05);
+    opacity: "0.2";
+    border-radius: 50%;
+    position: absolute;
+    color:rgb(71, 68, 68);
+    z-index: 1;
+    top: 45%;
+    right: 1%;
+}
+
+.arrowImageBack {
+    background-color:rgba(119, 116, 116, 0.05);
+    opacity: "0.2";
+    border-radius: 50%;
+    color:rgb(71, 68, 68);
+    position: absolute;
+    z-index: 1;
+    top: 45%;
+    left: 1%;
 }

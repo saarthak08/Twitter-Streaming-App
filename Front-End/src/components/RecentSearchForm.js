@@ -44,7 +44,6 @@ class RecentSearchForm extends React.Component {
                     `&start_time=${this.state.formattedDate}.000Z`
                 );
             }
-            console.log(apiUrl);
             axios
                 .get(apiUrl)
                 .then((res) => {
