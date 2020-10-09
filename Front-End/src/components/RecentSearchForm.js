@@ -1,7 +1,7 @@
 import React from "react";
-import axios from "axios";
 import { SingleDatePicker } from "react-dates";
 import { connect } from "react-redux";
+import {searchRecentTweets} from "../network/SearchRecentTweetsNetworkRequests";
 import moment from "moment";
 import { addTweets, clearTweets } from "../actions/TweetsActions";
 import { clearMeta, setMeta } from "../actions/MetaActions";
@@ -29,34 +29,30 @@ class RecentSearchForm extends React.Component {
             this.props.setMessage(false);
             this.props.dispatch(clearTweets());
             this.props.dispatch(clearMeta());
-            var apiUrl = `http://localhost:8080/api/tweets/search?keyword=`;
+            var query, startTime='';
             if (this.state.searchOption === "phrase") {
-                apiUrl = apiUrl.concat(`"${this.state.query}"`);
+                query = `"${this.state.query}"`;
             } else if (this.state.searchOption !== "keyword") {
-                apiUrl = apiUrl.concat(
-                    `${this.state.searchOption}${this.state.query}`
-                );
+                query = `${this.state.searchOption}${this.state.query}`;
             } else {
-                apiUrl = apiUrl.concat(`${this.state.query}`);
+                query = `${this.state.query}`;
             }
             if (this.state.formattedDate.length !== 0) {
-                apiUrl = apiUrl.concat(
-                    `&start_time=${this.state.formattedDate}.000Z`
-                );
+                startTime = `${this.state.formattedDate}.000Z`;
             }
-            axios
-                .get(apiUrl)
+            searchRecentTweets({query,startTime})
                 .then((res) => {
-                    this.props.setURL(apiUrl);
-                    console.log(res);
+                    this.props.setQuery(query);
+                    this.props.setStartTime(startTime);
                     this.props.dispatch(addTweets({ tweets: res.data.data }));
-                    if(res.data.data.length===0) {
+                    if (res.data.data.length === 0) {
                         this.props.setMessage(true);
                     }
                     this.props.dispatch(setMeta({ meta: res.data.meta }));
                     this.props.setSpinner(false);
                 })
                 .catch((e) => {
+                    console.log(e);
                     this.props.setSpinner(false);
                     this.props.setError(true);
                 });

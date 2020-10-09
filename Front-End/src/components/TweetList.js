@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Tweet from "./Tweet";
-import axios from "axios";
+import { searchRecentTweets } from "../network/SearchRecentTweetsNetworkRequests";
 import { connect } from "react-redux";
 import { addTweets } from "../actions/TweetsActions";
 import { setMeta } from "../actions/MetaActions";
@@ -8,21 +8,25 @@ import { Spinner } from "react-bootstrap";
 
 const TweetList = (props) => {
     const [isFetching, setIsFetching] = useState(false);
+    const [prevToken,setPrevToken]=useState('');
 
     useEffect(() => {
-        const handleScroll = () => {
+        const handleScroll = async () => {
             if (
                 window.innerHeight + document.documentElement.scrollTop !==
                 document.documentElement.offsetHeight
             ) {
                 return;
             } else {
-                if (props.url !== "") {
+                if (props.query !== ""&&!isFetching&&prevToken!==props.meta.next_token&&!isFetching) {
+                    setPrevToken(props.meta.next_token);
                     setIsFetching(true);
-                    axios
-                        .get(props.url + `&next_token=${props.meta.next_token}`)
+                    await searchRecentTweets({
+                        nextToken: props.meta.next_token,
+                        query: props.query,
+                        startTime: props.startTime,
+                    })
                         .then((res) => {
-                            console.log(res.data);
                             props.dispatch(
                                 addTweets({ tweets: res.data.data })
                             );
@@ -30,7 +34,6 @@ const TweetList = (props) => {
                             setIsFetching(false);
                         })
                         .catch((e) => {
-                            console.log(e);
                             setIsFetching(false);
                         });
                 }
@@ -38,7 +41,7 @@ const TweetList = (props) => {
         };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [props]);
+    }, [props,isFetching,prevToken]);
 
     return (
         <div className='pageBody' id='tweetListDiv'>

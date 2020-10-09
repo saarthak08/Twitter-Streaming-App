@@ -6,12 +6,14 @@ const HomePage = () => {
     const [error, setError] = useState(false);
     const [spinner, setSpinner]=useState(false);
     const [message, setMessage] = useState(false);
-    const [url,setURL]=useState('');
+    const [query,setQuery]=useState('');
+    const [startTime,setStartTime]=useState('');
 
 
     useEffect(() => {
         setMessage(false);
-        setURL('');
+        setQuery('');
+        setStartTime('');
     }, []);
 
 
@@ -22,9 +24,10 @@ const HomePage = () => {
                 setSpinner={setSpinner}
                 setError={setError}
                 setMessage={setMessage}
-                setURL={setURL}
+                setStartTime={setStartTime}
+                setQuery={setQuery}
             />
-            <TweetList error={error} message={message} spinner={spinner} url={url}/>
+            <TweetList error={error} message={message} spinner={spinner} query={query} startTime={startTime}/>
         </div>
     );
 };

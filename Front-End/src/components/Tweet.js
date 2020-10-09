@@ -5,6 +5,7 @@ import { Repeat, Favorite, ArrowForward, ArrowBack } from "@material-ui/icons";
 
 const Tweet = (props) => {
     const [index, setIndex] = useState(0);
+    
 
     useEffect(() => {
         setIndex(0);
