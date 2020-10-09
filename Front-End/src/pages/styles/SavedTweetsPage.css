@@ -1,0 +1,28 @@
+#spinnerDiv {
+    text-align: center;
+    margin-top: 20%;
+    margin-bottom: 20%;
+}
+
+
+#spinner {
+    position: relative;
+	top:0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+    height: 60px;
+    width: 60px;
+    background-color: aliceblue;
+    margin: auto
+}
+
+#tweetListDiv {
+    margin-top: 2rem;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#title {
+    text-align: center;
+}

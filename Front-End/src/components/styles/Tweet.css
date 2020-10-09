@@ -1,5 +1,5 @@
 #tweetDiv {
-    margin-bottom:1rem;
+    margin-bottom: 1rem;
 }
 
 #tweetCardSubtitle {
@@ -8,7 +8,7 @@
 }
 
 #tweetCardBody {
-    background-color:rgb(241, 249, 252);
+    background-color: rgb(241, 249, 252);
 }
 
 #repeatIcon {
@@ -21,43 +21,41 @@
 }
 
 #favoriteIcon {
-    margin-left:1rem;
+    margin-left: 1rem;
     color: red;
 }
 
 #cardHeaderText {
     font-weight: bold;
     font-size: large;
-    font-family: 'Piazzolla';
+    font-family: "Piazzolla";
     margin-left: 0.5rem;
 }
 
-
 .arrowImageForward {
-    background-color:rgba(119, 116, 116, 0.05);
+    background-color: rgba(119, 116, 116, 0.05);
     opacity: "0.2";
     border-radius: 50%;
     position: absolute;
-    color:rgb(71, 68, 68);
+    color: rgb(71, 68, 68);
     z-index: 1;
     top: 45%;
     right: 1%;
 }
 
 .arrowImageBack {
-    background-color:rgba(119, 116, 116, 0.05);
+    background-color: rgba(119, 116, 116, 0.05);
     opacity: "0.2";
     border-radius: 50%;
-    color:rgb(71, 68, 68);
+    color: rgb(71, 68, 68);
     position: absolute;
     z-index: 1;
     top: 45%;
     left: 1%;
 }
 
-
 #buttonToTwitter {
-    margin-right: 1rem;
+    margin-right: 0.5rem;
     margin-left: 1rem;
     padding-top: 0.1rem;
     padding-bottom: 0.1rem;
@@ -65,10 +63,25 @@
 
 #buttonOffline {
     padding-top: 0.1rem;
-    padding-bottom: 0.1rem;
+    margin-left: 0.5rem;
     border-radius: 1rem;
 }
 
 #toast {
     margin-top: 1rem;
+}
+
+@media (max-width: 450px) {
+    #buttonOffline {
+        padding-top: 0.1rem;
+        margin-top: 0.5rem;
+        border-radius: 1rem;
+    }
+    #buttonToTwitter {
+        margin-top: 0.5rem;
+        margin-right: 5rem;
+        margin-left: 0.5rem;
+        padding-top: 0.1rem;
+        padding-bottom: 0.1rem;
+    }
 }

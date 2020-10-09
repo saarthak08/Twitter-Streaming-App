@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { addTweetToSavedTweets } from "../network/SavedTweetsNetworkRequest";
+import {
+    addTweetToSavedTweets,
+    deleteSavedTweet,
+} from "../network/SavedTweetsNetworkRequest";
 import { Card, OverlayTrigger, Tooltip, Button, Toast } from "react-bootstrap";
 import { Repeat, Favorite, ArrowForward, ArrowBack } from "@material-ui/icons";
 
@@ -34,24 +37,44 @@ const Tweet = (props) => {
 
     const onSaveButtonClicked = (e) => {
         setIsSaving(true);
-        addTweetToSavedTweets(props.tweet)
-            .then((res) => {
-                if (res.status === 200) {
-                    setAfterSaveText("Saved!");
-                } else if (res.status === 208) {
-                    setAfterSaveText("Already Saved!");
-                } else {
+        if (props.saved) {
+            deleteSavedTweet(props.tweet.id)
+                .then((res) => {
+                    if (res.status === 200) {
+                        setAfterSaveText("Deleted!");
+                    } else {
+                        setAfterSaveText("An error occurred!");
+                    }
+                    setIsSaving(false);
+                    setShow(true);
+                    props.updateTweets();
+                })
+                .catch((e) => {
+                    setIsSaving(false);
                     setAfterSaveText("An error occurred!");
-                }
-                setIsSaving(false);
-                setShow(true);
-            })
-            .catch((e) => {
-                console.log(e);
-                setIsSaving(false);
-                setAfterSaveText("An error occurred!");
-                setShow(true);
-            });
+                    setShow(true);
+                    props.updateTweets();
+                });
+        } else {
+            addTweetToSavedTweets(props.tweet)
+                .then((res) => {
+                    if (res.status === 200) {
+                        setAfterSaveText("Saved!");
+                    } else if (res.status === 208) {
+                        setAfterSaveText("Already Saved!");
+                    } else {
+                        setAfterSaveText("An error occurred!");
+                    }
+                    setIsSaving(false);
+                    setShow(true);
+                })
+                .catch((e) => {
+                    console.log(e);
+                    setIsSaving(false);
+                    setAfterSaveText("An error occurred!");
+                    setShow(true);
+                });
+        }
     };
 
     return (
@@ -154,10 +177,16 @@ const Tweet = (props) => {
                     <Button
                         onClick={onSaveButtonClicked}
                         size='sm'
-                        variant='outline-success'
+                        variant={
+                            props.saved ? "outline-danger" : "outline-success"
+                        }
                         type='submit'
                         id='buttonOffline'>
-                        {isSaving ? `Loading...` : `Save`}
+                        {isSaving
+                            ? `Loading...`
+                            : props.saved
+                            ? `Delete`
+                            : `Save`}
                     </Button>
                     <Toast
                         id='toast'

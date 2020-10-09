@@ -12,3 +12,25 @@ export const addTweetToSavedTweets = async (tweet) => {
             throw e;
         });
 };
+
+export const getAllSavedTweets = async () => {
+    const url = baseURL + "/get-all";
+    return await axios
+        .get(url)
+        .then((res) => res)
+        .catch((e) => {
+            console.log(e);
+            throw e;
+        });
+};
+
+export const deleteSavedTweet = async (id) => {
+    const url = baseURL + `/delete/${id}`;
+    return await axios
+        .delete(url)
+        .then((res) => res)
+        .catch((e) => {
+            console.log(e);
+            throw e;
+        });
+};

@@ -80,7 +80,7 @@ class RecentSearchForm extends React.Component {
                 inputPrepend: "@",
                 inputValue: "Enter Username",
             });
-        } else if (e.target.value === "%23") {
+        } else if (e.target.value === "#") {
             this.setState({
                 inputPrepend: "#",
                 inputValue: "Enter Hashtag",
@@ -137,7 +137,7 @@ class RecentSearchForm extends React.Component {
                                     <option value='phrase'>
                                         Search Exact Phrase
                                     </option>
-                                    <option value='%23'>Hashtag</option>
+                                    <option value='#'>Hashtag</option>
                                 </Form.Control>
                             </Form.Group>
                         </Col>
