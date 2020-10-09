@@ -5,6 +5,7 @@ import HomePage from "../pages/HomePage";
 import NotFoundPage from "../pages/NotFoundPage";
 import SavedTweetsPage from "../pages/SavedTweetsPage";
 import StreamingPage from "../pages/StreamingPage";
+import Footer from '../components/Footer';
 
 const AppRouter = () => (
     <BrowserRouter>
@@ -16,6 +17,7 @@ const AppRouter = () => (
                 <Route path='/stream' component={StreamingPage} />
                 <Route component={NotFoundPage} />
             </Switch>
+            <Footer/>
         </div>
     </BrowserRouter>
 );

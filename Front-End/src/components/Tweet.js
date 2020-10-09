@@ -27,14 +27,6 @@ const Tweet = (props) => {
         setIndex(index - 1);
     };
 
-    const onImageClicked = (e, url) => {
-        window.location.href = url;
-    };
-
-    const onClickButtonToTwitter = (e) => {
-        window.location.href = `https://twitter.com/i/web/status/${props.tweet.id}`;
-    };
-
     const onSaveButtonClicked = (e) => {
         setIsSaving(true);
         if (props.saved) {
@@ -96,20 +88,19 @@ const Tweet = (props) => {
                             )}
                             {props.tweet.media[index] &&
                                 props.tweet.media[index].url && (
-                                    <Card.Img
-                                        variant='top'
-                                        src={props.tweet.media[index].url}
-                                        height={250}
-                                        style={{
-                                            objectFit: "contain",
-                                        }}
-                                        onClick={(e) =>
-                                            onImageClicked(
-                                                e,
-                                                props.tweet.media[index].url
-                                            )
-                                        }
-                                    />
+                                    <a
+                                        href={props.tweet.media[index].url}
+                                        target='_blank'
+                                        rel='noopener noreferrer'>
+                                        <Card.Img
+                                            variant='top'
+                                            src={props.tweet.media[index].url}
+                                            height={250}
+                                            style={{
+                                                objectFit: "contain",
+                                            }}
+                                        />
+                                    </a>
                                 )}
                             {index !== 0 && (
                                 <ArrowBack
@@ -120,21 +111,19 @@ const Tweet = (props) => {
                         </div>
                     ) : (
                         <div>
-                            {props.tweet.media[0] &&
-                                props.tweet.media[0].url && (
+                            {props.tweet.media[0] && props.tweet.media[0].url && (
+                                <a
+                                    href={props.tweet.media[0].url}
+                                    target='_blank'
+                                    rel='noopener noreferrer'>
                                     <Card.Img
                                         variant='top'
                                         src={props.tweet.media[0].url}
-                                        onClick={(e) =>
-                                            onImageClicked(
-                                                e,
-                                                props.tweet.media[0].url
-                                            )
-                                        }
                                         height={250}
                                         style={{ objectFit: "contain" }}
                                     />
-                                )}
+                                </a>
+                            )}
                         </div>
                     )
                 ) : (
@@ -166,14 +155,20 @@ const Tweet = (props) => {
                         <Favorite id='favoriteIcon' />
                     </OverlayTrigger>{" "}
                     {props.tweet.publicMetrics.like_count}
-                    <Button
-                        type='submit'
-                        size='sm'
-                        variant='outline-primary'
-                        onClick={onClickButtonToTwitter}
-                        id='buttonToTwitter'>
-                        See on Twitter
-                    </Button>
+                    <a
+                        href={
+                            "https://twitter.com/i/web/status/" + props.tweet.id
+                        }
+                        target='_blank'
+                        rel='noopener noreferrer'>
+                        <Button
+                            type='submit'
+                            size='sm'
+                            variant='outline-primary'
+                            id='buttonToTwitter'>
+                            See on Twitter
+                        </Button>
+                    </a>
                     <Button
                         onClick={onSaveButtonClicked}
                         size='sm'

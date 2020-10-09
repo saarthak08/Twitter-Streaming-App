@@ -1,0 +1,16 @@
+#favoriteIconFooter{
+    margin-left: 0;
+    margin-bottom: 0.2rem;
+    color: red;
+}
+
+#footerContainer {
+    align-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#textDiv{
+    font-size: medium;
+}

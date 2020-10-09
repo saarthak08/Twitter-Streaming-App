@@ -2,6 +2,7 @@
 @import "./components/styles/RecentSearchForm.css";
 @import "./components/styles/TweetList.css";
 @import "./components/styles/Tweet.css";
+@import "./components/styles/Footer.css";
 @import "./pages/styles/PageNotFound.css";
 @import "./pages/styles/SavedTweetsPage.css";
 
