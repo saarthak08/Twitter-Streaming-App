@@ -17,8 +17,8 @@ const TweetList = (props) => {
             ) {
                 return;
             } else {
-                setIsFetching(true);
                 if (props.url !== "") {
+                    setIsFetching(true);
                     axios
                         .get(props.url + `&next_token=${props.meta.next_token}`)
                         .then((res) => {
@@ -64,9 +64,7 @@ const TweetList = (props) => {
                     })}
                     {isFetching && (
                         <div id='fetchingSpinnerDiv'>
-                            <Spinner
-                                animation='grow'
-                                variant='dark'></Spinner>
+                            <Spinner animation='grow' variant='dark'></Spinner>
                         </div>
                     )}
                 </div>

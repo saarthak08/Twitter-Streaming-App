@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Card, OverlayTrigger, Tooltip, Button } from "react-bootstrap";
 import { Repeat, Favorite, ArrowForward, ArrowBack } from "@material-ui/icons";
 
 const Tweet = (props) => {
@@ -22,6 +22,10 @@ const Tweet = (props) => {
 
     const onImageClicked = (e, url) => {
         window.location.href = url;
+    };
+
+    const onClickButtonToTwitter = (e) => {
+        window.location.href = `https://twitter.com/i/web/status/${props.tweet.id}`;
     };
 
     return (
@@ -113,6 +117,21 @@ const Tweet = (props) => {
                         <Favorite id='favoriteIcon' />
                     </OverlayTrigger>{" "}
                     {props.tweet.publicMetrics.like_count}
+                    <Button
+                        type='submit'
+                        size='sm'
+                        variant='outline-primary'
+                        onClick={onClickButtonToTwitter}
+                        id='buttonToTwitter'>
+                        See on Twitter
+                    </Button>
+                    <Button
+                        size='sm'
+                        variant='outline-success'
+                        type='submit'
+                        id='buttonOffline'>
+                        Save
+                    </Button>
                 </Card.Body>
             </Card>
         </div>

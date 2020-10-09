@@ -54,3 +54,17 @@
     top: 45%;
     left: 1%;
 }
+
+
+#buttonToTwitter {
+    margin-right: 1rem;
+    margin-left: 1rem;
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+}
+
+#buttonOffline {
+    padding-top: 0.1rem;
+    padding-bottom: 0.1rem;
+    border-radius: 1rem;
+}
