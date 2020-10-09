@@ -6,10 +6,12 @@ const HomePage = () => {
     const [error, setError] = useState(false);
     const [spinner, setSpinner]=useState(false);
     const [message, setMessage] = useState(false);
+    const [url,setURL]=useState('');
 
 
     useEffect(() => {
         setMessage(false);
+        setURL('');
     }, []);
 
 
@@ -20,8 +22,9 @@ const HomePage = () => {
                 setSpinner={setSpinner}
                 setError={setError}
                 setMessage={setMessage}
+                setURL={setURL}
             />
-            <TweetList error={error} message={message} spinner={spinner}/>
+            <TweetList error={error} message={message} spinner={spinner} url={url}/>
         </div>
     );
 };

@@ -47,6 +47,7 @@ class RecentSearchForm extends React.Component {
             axios
                 .get(apiUrl)
                 .then((res) => {
+                    this.props.setURL(apiUrl);
                     console.log(res);
                     this.props.dispatch(addTweets({ tweets: res.data.data }));
                     if(res.data.data.length===0) {

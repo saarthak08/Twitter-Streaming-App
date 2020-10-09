@@ -41,20 +41,23 @@ const Tweet = (props) => {
                                     onClick={onForwardClicked}
                                 />
                             )}
-                            <Card.Img
-                                variant='top'
-                                src={props.tweet.media[index].url}
-                                height={250}
-                                style={{
-                                    objectFit: "contain",
-                                }}
-                                onClick={(e) =>
-                                    onImageClicked(
-                                        e,
-                                        props.tweet.media[index].url
-                                    )
-                                }
-                            />
+                            {props.tweet.media[index] &&
+                                props.tweet.media[index].url && (
+                                    <Card.Img
+                                        variant='top'
+                                        src={props.tweet.media[index].url}
+                                        height={250}
+                                        style={{
+                                            objectFit: "contain",
+                                        }}
+                                        onClick={(e) =>
+                                            onImageClicked(
+                                                e,
+                                                props.tweet.media[index].url
+                                            )
+                                        }
+                                    />
+                                )}
                             {index !== 0 && (
                                 <ArrowBack
                                     className='arrowImageBack'
@@ -63,15 +66,23 @@ const Tweet = (props) => {
                             )}
                         </div>
                     ) : (
-                        <Card.Img
-                            variant='top'
-                            src={props.tweet.media[0].url}
-                            onClick={(e) =>
-                                onImageClicked(e, props.tweet.media[0].url)
-                            }
-                            height={250}
-                            style={{ objectFit: "contain" }}
-                        />
+                        <div>
+                            {props.tweet.media[0] &&
+                                props.tweet.media[0].url && (
+                                    <Card.Img
+                                        variant='top'
+                                        src={props.tweet.media[0].url}
+                                        onClick={(e) =>
+                                            onImageClicked(
+                                                e,
+                                                props.tweet.media[0].url
+                                            )
+                                        }
+                                        height={250}
+                                        style={{ objectFit: "contain" }}
+                                    />
+                                )}
+                        </div>
                     )
                 ) : (
                     <div></div>
@@ -84,7 +95,11 @@ const Tweet = (props) => {
                         {moment(
                             props.tweet.createdAt,
                             "YYYY-MM-DDTHH:mm:ssZ"
-                        ).fromNow()}
+                        ).fromNow()}{" "}
+                        @{" "}
+                        {moment(props.tweet.createdAt).format(
+                            "DD MMM, YYYY, HH:MM A"
+                        )}
                     </Card.Subtitle>
                     <OverlayTrigger
                         placement='bottom'
