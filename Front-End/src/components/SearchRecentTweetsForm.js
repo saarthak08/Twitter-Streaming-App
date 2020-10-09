@@ -1,7 +1,7 @@
 import React from "react";
 import { SingleDatePicker } from "react-dates";
 import { connect } from "react-redux";
-import {searchRecentTweets} from "../network/SearchRecentTweetsNetworkRequests";
+import {searchRecentTweets} from "../network/SearchRecentTweetsNetworkRequest";
 import moment from "moment";
 import { addTweets, clearTweets } from "../actions/TweetsActions";
 import { clearMeta, setMeta } from "../actions/MetaActions";
@@ -52,7 +52,6 @@ class RecentSearchForm extends React.Component {
                     this.props.setSpinner(false);
                 })
                 .catch((e) => {
-                    console.log(e);
                     this.props.setSpinner(false);
                     this.props.setError(true);
                 });

@@ -1,7 +1,7 @@
 const defaultTweetsState = [
     {
         createdAt: "2020-10-07T19:36:03.000Z",
-        id: 1313926077689938000,
+        id: "1313926077689938000",
         media: [
             {
                 media_key: "3_1312022739511730177",

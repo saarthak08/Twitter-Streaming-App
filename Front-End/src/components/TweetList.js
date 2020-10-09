@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Tweet from "./Tweet";
-import { searchRecentTweets } from "../network/SearchRecentTweetsNetworkRequests";
+import { searchRecentTweets } from "../network/SearchRecentTweetsNetworkRequest";
 import { connect } from "react-redux";
 import { addTweets } from "../actions/TweetsActions";
 import { setMeta } from "../actions/MetaActions";

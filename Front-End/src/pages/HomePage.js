@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import RecentSearchForm from "../components/RecentSearchForm";
+import RecentSearchForm from "../components/SearchRecentTweetsForm";
 import TweetList from "../components/TweetList";
 
 const HomePage = () => {

@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { Card, OverlayTrigger, Tooltip, Button } from "react-bootstrap";
+import { addTweetToSavedTweets } from "../network/SavedTweetsNetworkRequest";
+import { Card, OverlayTrigger, Tooltip, Button, Toast } from "react-bootstrap";
 import { Repeat, Favorite, ArrowForward, ArrowBack } from "@material-ui/icons";
 
 const Tweet = (props) => {
     const [index, setIndex] = useState(0);
-    
+    const [isSaving, setIsSaving] = useState(false);
+    const [show, setShow] = useState(false);
+    const [afterSaveText, setAfterSaveText] = useState("");
 
     useEffect(() => {
         setIndex(0);
@@ -27,6 +30,28 @@ const Tweet = (props) => {
 
     const onClickButtonToTwitter = (e) => {
         window.location.href = `https://twitter.com/i/web/status/${props.tweet.id}`;
+    };
+
+    const onSaveButtonClicked = (e) => {
+        setIsSaving(true);
+        addTweetToSavedTweets(props.tweet)
+            .then((res) => {
+                if (res.status === 200) {
+                    setAfterSaveText("Saved!");
+                } else if (res.status === 208) {
+                    setAfterSaveText("Already Saved!");
+                } else {
+                    setAfterSaveText("An error occurred!");
+                }
+                setIsSaving(false);
+                setShow(true);
+            })
+            .catch((e) => {
+                console.log(e);
+                setIsSaving(false);
+                setAfterSaveText("An error occurred!");
+                setShow(true);
+            });
     };
 
     return (
@@ -127,12 +152,23 @@ const Tweet = (props) => {
                         See on Twitter
                     </Button>
                     <Button
+                        onClick={onSaveButtonClicked}
                         size='sm'
                         variant='outline-success'
                         type='submit'
                         id='buttonOffline'>
-                        Save
+                        {isSaving ? `Loading...` : `Save`}
                     </Button>
+                    <Toast
+                        id='toast'
+                        onClose={() => setShow(false)}
+                        show={show}
+                        delay={3000}
+                        autohide>
+                        <Toast.Header>
+                            <strong className='mr-auto'>{afterSaveText}</strong>
+                        </Toast.Header>
+                    </Toast>
                 </Card.Body>
             </Card>
         </div>

@@ -68,3 +68,7 @@
     padding-bottom: 0.1rem;
     border-radius: 1rem;
 }
+
+#toast {
+    margin-top: 1rem;
+}
