@@ -20,6 +20,10 @@ const Tweet = (props) => {
         setIndex(index - 1);
     };
 
+    const onImageClicked = (e, url) => {
+        window.location.href = url;
+    };
+
     return (
         <div id='tweetDiv'>
             <Card>
@@ -44,6 +48,12 @@ const Tweet = (props) => {
                                 style={{
                                     objectFit: "contain",
                                 }}
+                                onClick={(e) =>
+                                    onImageClicked(
+                                        e,
+                                        props.tweet.media[index].url
+                                    )
+                                }
                             />
                             {index !== 0 && (
                                 <ArrowBack
@@ -56,6 +66,9 @@ const Tweet = (props) => {
                         <Card.Img
                             variant='top'
                             src={props.tweet.media[0].url}
+                            onClick={(e) =>
+                                onImageClicked(e, props.tweet.media[0].url)
+                            }
                             height={250}
                             style={{ objectFit: "contain" }}
                         />
