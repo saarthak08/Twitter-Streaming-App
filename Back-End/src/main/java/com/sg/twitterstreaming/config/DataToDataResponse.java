@@ -9,8 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@lombok.Data
 public class DataToDataResponse {
+
+    public DataResponse getDataResponse() {
+        return dataResponse;
+    }
 
     private Data data;
     private DataResponse dataResponse;

@@ -3,6 +3,8 @@ package com.sg.twitterstreaming.controller;
 import com.sg.twitterstreaming.config.DataToDataResponse;
 import com.sg.twitterstreaming.model.DataResponse;
 import com.sg.twitterstreaming.model.service.tweet.Data;
+import com.sg.twitterstreaming.model.service.tweet.FluxResponse;
+import com.sg.twitterstreaming.model.service.tweet.Media;
 import com.sg.twitterstreaming.service.TweetAPIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,12 +42,12 @@ public class TweetAPIController {
     }
 
     @GetMapping(value = "/sample-stream", produces = {MediaType.TEXT_EVENT_STREAM_VALUE})
-    public Flux<String> startSampleTweetsStreaming() {
+    public Flux<DataResponse> startSampleTweetsStreaming() {
         return tweetApiService.startSampleTweetsStreaming();
     }
 
     @GetMapping(value = "/live-stream", produces = {MediaType.TEXT_EVENT_STREAM_VALUE})
-    public Flux<String> startRealtimeTweetsStreaming() {
+    public Flux<DataResponse> startRealtimeTweetsStreaming() {
         return tweetApiService.startRealtimeTweetsStreaming();
     }
 
