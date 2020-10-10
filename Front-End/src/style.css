@@ -4,6 +4,7 @@
 @import "./components/styles/Tweet.css";
 @import "./components/styles/Footer.css";
 @import "./pages/styles/PageNotFound.css";
+@import "./pages/styles/StreamingPage.css";
 @import "./pages/styles/SavedTweetsPage.css";
 
 h1 {

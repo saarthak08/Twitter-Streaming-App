@@ -1,0 +1,47 @@
+
+#realtimeStreamingButton {
+    border-radius: 1.5rem;
+    margin-left: 0.5%;
+    margin-top: 0.5%; 
+    margin-bottom: 2%;
+    font-size: 15px;
+    padding: 5px 10px 5px 10px
+}
+
+#sampleStreamingButton {
+    border-radius: 1.5rem;
+    margin-left: 0.5%;
+    margin-top: 0.5%;
+    color:black;
+    margin-bottom: 3%;
+    font-size: 15px;
+    padding: 5px 10px 5px 10px
+}
+
+#sampleSpinnerDiv {
+    font-size: large;
+}
+
+#sampleSpinner{
+    margin-left: 10px;
+    margin-bottom: 1px;
+    height: 20px;
+    border-width: 1px;
+    width: 20px;
+    
+}
+
+
+#streamTweetsListDiv {
+    margin-top: 1.5rem;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#tweetsTitleDiv {
+    margin-left: 5.5%;
+    margin-right: 5%;
+    margin-top: 4rem;
+    font-size: xx-large;
+    font-family: 'Piazzolla';
+}
