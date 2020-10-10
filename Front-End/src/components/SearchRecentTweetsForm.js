@@ -33,11 +33,15 @@ class SearchRecentTweetsForm extends React.Component {
             var query, startTime='';
             if (this.state.searchOption === "phrase") {
                 query = `"${this.state.query}"`;
-            } else if (this.state.searchOption !== "keyword") {
+            } else if (this.state.searchOption === "#") {
                 query = `${this.state.searchOption}${this.state.query}`;
-            } else {
-                query = `${this.state.query}`;
+            } else if(this.state.searchOption==='from:') {
+
+                query = `${this.state.searchOption}${this.state.query}`;
+            } else if(this.state.searchOption==='keyword') {
+                query=this.state.query;
             }
+    
             if (this.state.formattedDate.length !== 0) {
                 startTime = `${this.state.formattedDate}.000Z`;
             }

@@ -3,7 +3,6 @@
     border-radius: 1.5rem;
     margin-left: 0.5%;
     margin-top: 0.5%; 
-    margin-bottom: 2%;
     font-size: 15px;
     padding: 5px 10px 5px 10px
 }
@@ -13,16 +12,16 @@
     margin-left: 0.5%;
     margin-top: 0.5%;
     color:black;
-    margin-bottom: 3%;
+    margin-bottom: 4%;
     font-size: 15px;
     padding: 5px 10px 5px 10px
 }
 
-#sampleSpinnerDiv {
+.sampleSpinnerDiv {
     font-size: large;
 }
 
-#sampleSpinner{
+.sampleSpinner{
     margin-left: 10px;
     margin-bottom: 1px;
     height: 20px;
@@ -44,4 +43,8 @@
     margin-top: 4rem;
     font-size: xx-large;
     font-family: 'Piazzolla';
+}
+
+#ruleSpinnerDiv {
+    text-align: center;
 }

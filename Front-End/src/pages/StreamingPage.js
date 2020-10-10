@@ -1,6 +1,12 @@
 import React from "react";
 import Tweet from "../components/Tweet";
+import ChipList from "../components/ChipList";
 import { Button, Col, Form, InputGroup, Spinner } from "react-bootstrap";
+import {
+    addStreamRule,
+    deleteStreamRule,
+    getAllStreamRules,
+} from "../network/RealtimeTweetsStreamRulesNetworkRequests";
 
 class StreamingPage extends React.Component {
     constructor(props) {
@@ -13,8 +19,79 @@ class StreamingPage extends React.Component {
             isSampleStreaming: false,
             tweets: [],
             tweetsTitle: "",
+            loading: false,
+            chipData: [],
+            isRealtimeStreaming: false,
         };
         this.sampleEventSource = undefined;
+        this.realtimeEventSource = undefined;
+    }
+
+    onChangeSelectOptions = (e) => {
+        this.setState({
+            searchOption: e.target.value,
+        });
+        if (e.target.value === "keyword" || e.target.value === "phrase") {
+            this.setState({
+                inputPrepend: ":",
+            });
+            if (e.target.value === "keyword") {
+                this.setState({
+                    inputValue: "Enter Keyword",
+                });
+            } else {
+                this.setState({
+                    inputValue: "Enter Phrase",
+                });
+            }
+        } else if (e.target.value === "from:") {
+            this.setState({
+                inputPrepend: "@",
+                inputValue: "Enter Username",
+            });
+        } else if (e.target.value === "#") {
+            this.setState({
+                inputPrepend: "#",
+                inputValue: "Enter Hashtag",
+            });
+        }
+    };
+
+    deleteChip = (chipToDelete) => {
+        this.setState({ loading: true });
+        deleteStreamRule(chipToDelete.id)
+            .then((res) => {
+                if (res.status === 200) {
+                    var chips = this.state.chipData.filter((chip) => {
+                        return chip.id !== chipToDelete.id;
+                    });
+                    this.setState({
+                        chipData: chips,
+                    });
+                    this.setState({ loading: false });
+                }
+            })
+            .catch((err) => {
+                this.setState({ loading: false });
+            });
+    };
+
+    fetchAllStreamRules = () => {
+        this.setState({ loading: true });
+        getAllStreamRules()
+            .then((res) => {
+                if (res.data.data) {
+                    this.setState({ chipData: res.data.data });
+                }
+                this.setState({ loading: false });
+            })
+            .catch((err) => {
+                this.setState({ loading: false });
+            });
+    };
+
+    componentDidMount() {
+        this.fetchAllStreamRules();
     }
 
     onClickSampleStreamButton = (e) => {
@@ -24,6 +101,7 @@ class StreamingPage extends React.Component {
                 this.sampleEventSource.close();
             }
         } else {
+            this.setState({ tweets: [], tweetsTitle: [] });
             this.sampleEventSource = new EventSource(
                 "http://localhost:8080/api/tweets/sample-stream"
             );
@@ -36,11 +114,78 @@ class StreamingPage extends React.Component {
                     ],
                 });
             };
+            this.sampleEventSource.onerror = (event) => {
+                this.sampleEventSource.close();
+                this.setState({
+                    isSampleStreaming: !this.state.isSampleStreaming,
+                });
+            };
         }
         this.setState({ isSampleStreaming: !this.state.isSampleStreaming });
     };
 
-    onSubmitSearchQuery = (e) => {};
+    onClickRealtimeStreamButton = (e) => {
+        e.preventDefault();
+        if (this.state.isRealtimeStreaming) {
+            if (this.realtimeEventSource !== undefined) {
+                this.realtimeEventSource.close();
+            }
+        } else {
+            this.setState({ tweets: [], tweetsTitle: "" });
+            this.realtimeEventSource = new EventSource(
+                "http://localhost:8080/api/tweets/live-stream"
+            );
+            this.realtimeEventSource.onmessage = (event) => {
+                this.setState({
+                    tweetsTitle: "Realtime Streamed Tweets",
+                    tweets: [
+                        ...this.state.tweets,
+                        ...JSON.parse(event.data).data,
+                    ],
+                });
+            };
+            this.realtimeEventSource.onerror = (event) => {
+                this.realtimeEventSource.close();
+                this.setState({
+                    isRealtimeStreaming: !this.state.isRealtimeStreaming,
+                });
+            };
+        }
+        this.setState({ isRealtimeStreaming: !this.state.isRealtimeStreaming });
+    };
+
+    onSubmitSearchQuery = (e) => {
+        e.preventDefault();
+        if (this.state.query.length !== 0) {
+            this.setState({ loading: true });
+            var query, tag;
+            if (this.state.searchOption === "phrase") {
+                query = `"${this.state.query}"`;
+            } else if (this.state.searchOption === "#") {
+                query = `${this.state.searchOption}${this.state.query}`;
+            } else if (this.state.searchOption === "from:") {
+                query = `${this.state.searchOption}${this.state.query}`;
+            } else if (this.state.searchOption === "keyword") {
+                query = this.state.query;
+            }
+            tag = query;
+            addStreamRule({ value: query, tag: tag })
+                .then((res) => {
+                    this.setState({ loading: false });
+                    if (res.data.data) {
+                        this.setState({
+                            chipData: [
+                                ...this.state.chipData,
+                                ...res.data.data,
+                            ],
+                        });
+                    }
+                })
+                .catch((e) => {
+                    this.setState({ loading: false });
+                });
+        }
+    };
 
     render() {
         return (
@@ -54,13 +199,14 @@ class StreamingPage extends React.Component {
                 <Button
                     id='sampleStreamingButton'
                     type='submit'
+                    disabled={this.state.isRealtimeStreaming}
                     variant='outline-warning'
                     onClick={this.onClickSampleStreamButton}>
                     {this.state.isSampleStreaming ? (
-                        <div id='sampleSpinnerDiv'>
+                        <div className='sampleSpinnerDiv'>
                             Stop
                             <Spinner
-                                id='sampleSpinner'
+                                className='sampleSpinner'
                                 animation='border'
                                 variant='dark'
                             />
@@ -69,23 +215,40 @@ class StreamingPage extends React.Component {
                         `Start Sample Streaming`
                     )}
                 </Button>
+                <p style={{ textAlign: "justify" }}>
+                    The realtime filtered stream enables to filter the real-time
+                    stream of public Tweets. You can set filters to this stream
+                    and real-time matching public Tweets will be delivered.{" "}
+                    <strong>
+                        If no filters are applied, this stream will not return
+                        anything.
+                    </strong>
+                </p>
+                <Button
+                    onClick={this.onClickRealtimeStreamButton}
+                    disabled={
+                        this.state.isSampleStreaming ||
+                        this.state.chipData.length === 0
+                    }
+                    id='realtimeStreamingButton'
+                    type='submit'
+                    variant='success'>
+                    {this.state.isRealtimeStreaming ? (
+                        <div className='sampleSpinnerDiv'>
+                            Stop
+                            <Spinner
+                                className='sampleSpinner'
+                                animation='border'
+                                variant='dark'
+                            />
+                        </div>
+                    ) : (
+                        `Start Realtime Streaming`
+                    )}
+                </Button>
                 <Form
                     onSubmit={this.onSubmitSearchQuery}
                     className='searchForm'>
-                    <p style={{ textAlign: "justify" }}>
-                        The realtime filtered stream enables to filter the
-                        real-time stream of public Tweets. You can set filters
-                        to this stream and real-time matching public Tweets will
-                        be delivered. If no filters are applied, this stream
-                        will not return anything.
-                    </p>
-                    <Button
-                        disabled={this.state.isSampleStreaming}
-                        id='realtimeStreamingButton'
-                        type='submit'
-                        variant='success'>
-                        Start Realtime Filtered Streaming
-                    </Button>
                     <Form.Row>
                         <Col xs={7}>
                             <Form.Group>
@@ -150,6 +313,20 @@ class StreamingPage extends React.Component {
                         </Form.Group>
                     </Form.Row>
                 </Form>
+                {this.state.loading ? (
+                    <div id='ruleSpinnerDiv'>
+                        <Spinner animation='border' variant='dark'></Spinner>
+                    </div>
+                ) : (
+                    <div></div>
+                )}
+                {this.state.chipData.length !== 0 ? (
+                    <ChipList
+                        chipData={this.state.chipData}
+                        deleteChip={this.deleteChip}></ChipList>
+                ) : (
+                    <div></div>
+                )}
                 <div id='tweetsTitleDiv'>{this.state.tweetsTitle}</div>
                 <div id='streamTweetsListDiv'>
                     {this.state.tweets.map((tweet, index) => {
