@@ -13,6 +13,8 @@ public class StreamRule implements Serializable {
 
     private String value;
 
+    private String tag;
+
     public StreamRule() {
 
     }

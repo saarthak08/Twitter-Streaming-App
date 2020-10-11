@@ -42,7 +42,7 @@ public class DBControllerUnitTest {
         data.setTweetResponse(tweetList);
         String json=objectMapper.writeValueAsString(data);
         when(tweetRepository.findAll()).thenReturn(tweetList);
-        MvcResult mvcResult=mockMvc.perform(get("/api/tweets/offline/get-all"))
+        MvcResult mvcResult=mockMvc.perform(get("/api/tweets/saved/get-all"))
                 .andReturn();
         String expectedResponse=mvcResult.getResponse().getContentAsString();
         assertThat(json).isEqualTo(expectedResponse);
@@ -54,7 +54,7 @@ public class DBControllerUnitTest {
         TweetResponse test=new TweetResponse();
         ResponseEntity<?> responseEntity= new ResponseEntity<>("Success", HttpStatus.OK);
         when(tweetRepository.save(test)).thenReturn(test);
-        MvcResult mvcResult=mockMvc.perform(post("/api/tweets/offline/add")
+        MvcResult mvcResult=mockMvc.perform(post("/api/tweets/saved/add")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(test)))
                 .andReturn();
@@ -66,7 +66,7 @@ public class DBControllerUnitTest {
     @Test
     public void deleteTweetFromDBTest() throws Exception {
         ResponseEntity<?> responseEntity= new ResponseEntity<>("Success", HttpStatus.OK);
-        MvcResult mvcResult=mockMvc.perform(delete("/api/tweets/offline/delete/{id}","1")
+        MvcResult mvcResult=mockMvc.perform(delete("/api/tweets/saved/delete/{id}","1")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andReturn();
         String expectedResponse=mvcResult.getResponse().getContentAsString();
