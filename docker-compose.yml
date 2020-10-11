@@ -32,7 +32,7 @@ services:
       - "3000:3000"
     restart: always
     depends_on:
-      - app-server
+      - dev-app-server
     networks:
       - frontend  
     stdin_open: true
