@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 @RequestMapping("/api/tweets/saved")
 public class TweetDBController {
 
@@ -32,7 +32,7 @@ public class TweetDBController {
     @PostMapping("/add")
     public ResponseEntity<?> addTweetToDB(@RequestBody TweetResponse tweet) {
         try {
-            if (tweetRepository.findById((tweet.getId())).isEmpty()) {
+            if (!tweetRepository.findById((tweet.getId())).isPresent()) {
                 tweetRepository.save(tweet);
                 return new ResponseEntity<>("Success", HttpStatus.OK);
             } else {
