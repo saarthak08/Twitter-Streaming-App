@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+
+  twitter-streaming-app-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    image: saarthak08/twitter-streaming-app-frontend
+    ports:
+      - '80:80'
