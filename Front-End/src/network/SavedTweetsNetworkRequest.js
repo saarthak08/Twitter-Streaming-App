@@ -1,6 +1,6 @@
 import axios from "axios";
 
-var baseURL = "http://localhost:8080/api/tweets/saved";
+var baseURL = "https://twitter-streaming-app-backend.herokuapp.com/api/tweets/saved";
 
 export const addTweetToSavedTweets = async (tweet) => {
     const url = baseURL + "/add";

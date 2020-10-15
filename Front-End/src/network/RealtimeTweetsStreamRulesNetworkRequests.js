@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:8080/api/tweets/live-stream/rules";
+const url = "https://twitter-streaming-app-backend.herokuapp.com/api/tweets/live-stream/rules";
 
 export const getAllStreamRules = async () => {
     return await axios

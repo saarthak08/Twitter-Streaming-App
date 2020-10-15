@@ -103,7 +103,7 @@ class StreamingPage extends React.Component {
         } else {
             this.setState({ tweets: [], tweetsTitle: [] });
             this.sampleEventSource = new EventSource(
-                "http://localhost:8080/api/tweets/sample-stream"
+                "https://twitter-streaming-app-backend.herokuapp.com/api/tweets/sample-stream"
             );
             this.sampleEventSource.onmessage = (event) => {
                 this.setState({
@@ -133,7 +133,7 @@ class StreamingPage extends React.Component {
         } else {
             this.setState({ tweets: [], tweetsTitle: "" });
             this.realtimeEventSource = new EventSource(
-                "http://localhost:8080/api/tweets/live-stream"
+                "https://twitter-streaming-app-backend.herokuapp.com/api/tweets/live-stream"
             );
             this.realtimeEventSource.onmessage = (event) => {
                 this.setState({

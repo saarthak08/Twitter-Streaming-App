@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = `http://localhost:8080/api/tweets/search`;
+const apiUrl = `https://twitter-streaming-app-backend.herokuapp.com/api/tweets/search`;
 
 export const searchRecentTweets = async ({
     query = "",
