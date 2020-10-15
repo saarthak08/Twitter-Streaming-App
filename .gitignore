@@ -4,3 +4,11 @@
 
 
 Back-End/src/main/java/com/sg/twitterstreaming/config/Key.java
+
+Front-End/Dockerfile.production
+
+docker-compose.yml
+
+docker-compose.production.yml
+
+
