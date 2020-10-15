@@ -12,6 +12,7 @@
 }
 
 #repeatIcon {
+    display: inline-block;
     margin-left: 0.5rem;
     color: #182430;
 }
@@ -21,6 +22,7 @@
 }
 
 #favoriteIcon {
+    display: inline-block;
     margin-left: 1rem;
     color: red;
 }
@@ -55,6 +57,7 @@
 }
 
 #buttonToTwitter {
+    display: inline-block;
     margin-right: 0.5rem;
     margin-left: 1rem;
     padding-top: 0.1rem;
@@ -62,6 +65,7 @@
 }
 
 #buttonOffline {
+    display: inline-block;
     padding-top: 0.1rem;
     margin-left: 0.5rem;
     border-radius: 1rem;
@@ -71,17 +75,18 @@
     margin-top: 1rem;
 }
 
-@media (max-width: 440px) {
-    #buttonOffline {
-        padding-top: 0.1rem;
+#buttonsDiv {
+    display: inline-block;
+}
+
+@media (max-width:450px) {
+    #buttonsDiv {
         margin-top: 0.5rem;
-        border-radius: 1rem;
     }
+
     #buttonToTwitter {
-        margin-top: 0.5rem;
-        margin-right: 6rem;
-        margin-left: 0.5rem;
-        padding-top: 0.1rem;
-        padding-bottom: 0.1rem;
+        margin-left: 0.6rem;
     }
 }
+
+

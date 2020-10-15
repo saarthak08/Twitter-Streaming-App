@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiUrl = `http://localhost:8080/api/tweets/search`;
+const apiUrl = `http://192.168.29.193:8080/api/tweets/search`;
 
 export const searchRecentTweets = async ({
     query = "",
