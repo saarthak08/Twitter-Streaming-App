@@ -6,3 +6,7 @@ Dockerfile
 Dockerfile.production
 .editorconfig
 .DS_Store
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
