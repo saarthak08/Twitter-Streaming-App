@@ -13,6 +13,8 @@ FROM nginx:stable-alpine
 
 COPY --from=build /twitter-streaming-app-frontend/build /usr/share/nginx/html
 
-EXPOSE 80
+COPY nginx-config/nginx.conf /nginx.conf.template
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD gunicorn --bind 0.0.0.0:$PORT wsgi
+
+CMD ["/bin/sh" , "-c" , "envsubst '$PORT' < /nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"]
