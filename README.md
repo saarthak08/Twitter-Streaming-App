@@ -30,3 +30,6 @@ A web app for streaming realtime tweets from twitter & searching recent tweets f
 - - For development purposes, run `npm start`. 
 - - For production purposes, run `npm build`.
 
+## Note: 
+- Default port for backend is `8080`.
+- Default port for frontend is `3000`.

@@ -16,5 +16,4 @@ public class TwitterStreamingApplication {
         
         SpringApplication.run(TwitterStreamingApplication.class, args);
     }
-
 }

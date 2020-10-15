@@ -13,7 +13,8 @@ const TweetList = (props) => {
     useEffect(() => {
         const handleScroll = async () => {
             if (
-                window.innerHeight + document.documentElement.scrollTop !==
+                window.innerHeight +
+                    Math.ceil(document.documentElement.scrollTop)+150 <
                 document.documentElement.offsetHeight
             ) {
                 return;

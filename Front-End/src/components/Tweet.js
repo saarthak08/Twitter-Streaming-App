@@ -71,7 +71,7 @@ const Tweet = (props) => {
 
     return (
         <div id='tweetDiv'>
-            <Card>
+            <Card id='card'>
                 <Card.Header id='cardHeader'>
                     <div id='cardHeaderText'>
                         {props.tweet.user.name} @{props.tweet.user.username}
@@ -139,8 +139,8 @@ const Tweet = (props) => {
                             "YYYY-MM-DDTHH:mm:ssZ"
                         ).fromNow()}{" "}
                         @{" "}
-                        {moment(props.tweet.createdAt).format(
-                            "DD MMM, YYYY, HH:MM A"
+                        {moment(props.tweet.createdAt,"YYYY-MM-DDTHH:mm:ssZ").format(
+                            "DD MMM, YYYY, hh:mm A"
                         )}
                     </Card.Subtitle>
                     <OverlayTrigger
@@ -155,34 +155,39 @@ const Tweet = (props) => {
                         <Favorite id='favoriteIcon' />
                     </OverlayTrigger>{" "}
                     {props.tweet.publicMetrics.like_count}
-                    <a
-                        href={
-                            "https://twitter.com/i/web/status/" + props.tweet.id
-                        }
-                        target='_blank'
-                        rel='noopener noreferrer'>
+                    <div id='buttonsDiv'>
+                        <a
+                            href={
+                                "https://twitter.com/i/web/status/" +
+                                props.tweet.id
+                            }
+                            target='_blank'
+                            rel='noopener noreferrer'>
+                            <Button
+                                type='submit'
+                                size='sm'
+                                variant='outline-primary'
+                                id='buttonToTwitter'>
+                                See on Twitter
+                            </Button>
+                        </a>
                         <Button
-                            type='submit'
+                            onClick={onSaveButtonClicked}
                             size='sm'
-                            variant='outline-primary'
-                            id='buttonToTwitter'>
-                            See on Twitter
+                            variant={
+                                props.saved
+                                    ? "outline-danger"
+                                    : "outline-success"
+                            }
+                            type='submit'
+                            id='buttonOffline'>
+                            {isSaving
+                                ? `Loading...`
+                                : props.saved
+                                ? `Delete`
+                                : `Save`}
                         </Button>
-                    </a>
-                    <Button
-                        onClick={onSaveButtonClicked}
-                        size='sm'
-                        variant={
-                            props.saved ? "outline-danger" : "outline-success"
-                        }
-                        type='submit'
-                        id='buttonOffline'>
-                        {isSaving
-                            ? `Loading...`
-                            : props.saved
-                            ? `Delete`
-                            : `Save`}
-                    </Button>
+                    </div>
                     <Toast
                         id='toast'
                         onClose={() => setShow(false)}
