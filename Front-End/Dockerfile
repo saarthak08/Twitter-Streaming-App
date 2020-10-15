@@ -1,18 +1,18 @@
-FROM node:alpine
+FROM node:alpine as build
 
-WORKDIR /twitter-streaming-app-frontend-dev
+WORKDIR /twitter-streaming-app-frontend
  
 COPY . ./
 
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /twitter-streaming-app-frontend-dev/node_modules/.bin:$PATH
+RUN npm install
 
-# install app dependencies
-COPY package.json ./
-RUN npm install --silent
-RUN npm install react-scripts@3.4.1 -g --silent
+RUN npm run build
 
-EXPOSE 3000
+# production environment
+FROM nginx:stable-alpine
 
-# start app
-CMD ["npm", "start"]
+COPY --from=build /twitter-streaming-app-frontend/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
