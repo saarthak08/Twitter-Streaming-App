@@ -2,7 +2,7 @@
 A web app for streaming realtime tweets from twitter & searching recent tweets filtered by different categories.
 
 ## URL:
-- https://twitter-streaming-app.herokuapp.com/
+- https://twitter-streaming-app.herokuapp.com
 - `Initial requests to the server may fail as Heroku takes some time to start the dyno server.`
 
 ## Features
