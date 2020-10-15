@@ -1,0 +1,17 @@
+.classpath
+.project
+.springBeans
+
+.DS_Store
+
+.git
+.settings
+
+.idea/
+*.iml
+*.iws
+target/
+.sonar/
+.sonarlint/
+
+Dockerfile
